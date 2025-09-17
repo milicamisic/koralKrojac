@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!-- enable CEP now so we don’t revisit later -->
+    <kbase name="rules" packages="rules" eventProcessingMode="stream">
+        <ksession name="rulesSession"/>
+    </kbase>
+</kmodule>

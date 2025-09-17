@@ -1,0 +1,44 @@
+# =========================
+# Java / Spring Boot
+# =========================
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.settings/
+.classpath
+.project
+
+# IntelliJ / Eclipse / VS Code IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+*.class
+*.log
+*.DS_Store
+.vscode/
+*.swp
+out/
+
+# =========================
+# Angular / Node
+# =========================
+/node_modules/
+/dist/
+/.angular/
+/coverage/
+/tmp/
+/package-lock.json
+
+# =========================
+# OS files
+# =========================
+Thumbs.db
+.DS_Store

@@ -1,0 +1,37 @@
+package rules
+
+import com.example.fabric.model.ShirtRequest
+import com.example.fabric.model.Evaluation
+import com.example.fabric.model.Fabric
+
+// --- SMOKE RULES (keep minimal just to verify the pipeline) ---
+
+rule "Init base length"
+when
+  $req : ShirtRequest()
+  $eval: Evaluation()
+then
+  // super simple base, just so we see data flows end-to-end
+  double base = 1.4;
+  $eval.setBaseLength(base);
+  $eval.addMessage("Base length initialized to " + base + " m");
+end
+
+rule "Mark very thin fabrics as not suitable (gsm < 100)"
+when
+  $eval: Evaluation()
+  $f   : Fabric( gsm < 100 )
+then
+  $eval.addFabricLength($f.getName(), -1.0);
+  $eval.addMessage("Not suitable: " + $f.getName() + " (gsm < 100)");
+end
+
+rule "Slight reduction for stretchy fabrics (stretchPct >= 10%)"
+when
+  $eval: Evaluation()
+  $f   : Fabric( stretchPct >= 10 )
+then
+  double len = Math.max(0.0, $eval.getBaseLength() - 0.1);
+  $eval.addFabricLength($f.getName(), len);
+  $eval.addMessage("Stretchy fabric " + $f.getName() + " length " + len + " m");
+end
