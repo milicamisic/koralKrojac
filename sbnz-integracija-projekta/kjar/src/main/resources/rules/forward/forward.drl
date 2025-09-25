@@ -1,0 +1,183 @@
+package forward
+dialect "java"
+
+import com.ftn.sbnz.model.models.TShirt
+import com.ftn.sbnz.model.models.Fabric
+import com.ftn.sbnz.model.models.TShirtFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+// =========================
+// Filter – pravimo ClothingFabric od TShirtFabric ako je CLOTHING
+// =========================
+rule "Filter clothing fabrics"
+when
+    $tf : TShirtFabric(fabric.category == "CLOTHING")
+then
+    // U sesiju vraćamo istu instancu, ali pod posebnim markerom
+    insertLogical($tf);
+    System.out.println("Propušten CLOTHING: " + $tf.getFabric().getName());
+end
+
+rule "Skip non-clothing fabrics"
+when
+    $tf : TShirtFabric(fabric.category != "CLOTHING")
+then
+    System.out.println("Ignorisana tkanina (nije CLOTHING): " + $tf.getFabric().getName());
+end
+
+// =========================
+// Bazna metraža po obimu grudi
+// =========================
+rule "T-shirt base 70-85 bust"
+when
+    $tf : TShirtFabric(fabric.category == "CLOTHING", tshirt.bust >= 70, tshirt.bust < 85)
+then
+    Recommendation rec = new Recommendation($tf.getFabric(), 1.2,
+        "Bazna metraža za obim grudi 70–85 cm");
+    insert(rec);
+end
+
+rule "T-shirt base 85-100 bust"
+when
+    $tf : TShirtFabric(fabric.category == "CLOTHING", tshirt.bust >= 85, tshirt.bust < 100)
+then
+    Recommendation rec = new Recommendation($tf.getFabric(), 1.4,
+        "Bazna metraža za obim grudi 85–100 cm");
+    insert(rec);
+end
+
+rule "T-shirt base 100-115 bust"
+when
+    $tf : TShirtFabric(fabric.category == "CLOTHING", tshirt.bust >= 100, tshirt.bust < 115)
+then
+    Recommendation rec = new Recommendation($tf.getFabric(), 1.6,
+        "Bazna metraža za obim grudi 100–115 cm");
+    insert(rec);
+end
+
+rule "T-shirt base 115-130 bust"
+when
+    $tf : TShirtFabric(fabric.category == "CLOTHING", tshirt.bust >= 115, tshirt.bust <= 130)
+then
+    Recommendation rec = new Recommendation($tf.getFabric(), 1.8,
+        "Bazna metraža za obim grudi 115–130 cm");
+    insert(rec);
+end
+
+// =========================
+// Korekcija po dužini torza
+// =========================
+rule "Torso length 50-60 add 0.1"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(torsoLength >= 50, torsoLength < 60) from $t
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + 0.1),
+        setNote($rec.getNote() + " + korekcija torzo 50–60 cm")
+    }
+end
+
+rule "Torso length >60 add 0.2"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(torsoLength >= 60) from $t
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + 0.2),
+        setNote($rec.getNote() + " + korekcija torzo >60 cm")
+   }
+end
+
+// =========================
+// Korekcija po rukavima
+// =========================
+rule "No sleeves -0.2"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(hasSleeves == false) from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() - 0.2),
+                   setNote($rec.getNote() + " - nema rukava") }
+end
+
+rule "Short sleeves +0.2"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(hasSleeves == true, sleeveLength < 20) from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() + 0.2),
+                   setNote($rec.getNote() + " + kratki rukavi") }
+end
+
+rule "Long sleeves +0.4"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(hasSleeves == true, sleeveLength >= 20) from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() + 0.4),
+                   setNote($rec.getNote() + " + dugi rukavi") }
+end
+
+// =========================
+// Korekcija po obimu ramena
+// =========================
+rule "Shoulders 40-50 add 0.1"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(shoulder >= 40, shoulder < 50) from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() + 0.1),
+                   setNote($rec.getNote() + " + ramena 40–50 cm") }
+end
+
+rule "Shoulders >50 add 0.2"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(shoulder >= 50) from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() + 0.2),
+                   setNote($rec.getNote() + " + ramena >50 cm") }
+end
+
+// =========================
+// Korekcija po fit-u
+// =========================
+rule "Loose fit +10%"
+when
+    $tf : TShirtFabric($t : tshirt)
+    $rec : Recommendation(fabric == $tf.fabric)
+    TShirt(fit == "Loose") from $t
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() * 1.10),
+                   setNote($rec.getNote() + " + loose fit (+10%)") }
+end
+
+rule "Slim fit not stretchy warning"
+when
+    $tf : TShirtFabric($t : tshirt, $f : fabric)
+    $rec : Recommendation(fabric == $f)
+    TShirt(fit == "Slim") from $t
+    Fabric(stretchPercentage < 10.0) from $f
+then
+//    modify($rec) { setNote($rec.getNote() + " | UPOZORENJE: materijal nije pogodan za slim kroj (<10% stretch)") }
+    delete($rec);
+end
+
+rule "Slim fit stretchy -0.1"
+when
+    $tf : TShirtFabric($t : tshirt, $f : fabric)
+    $rec : Recommendation(fabric == $f)
+    TShirt(fit == "Slim") from $t
+    Fabric(stretchPercentage >= 10.0) from $f
+then
+    modify($rec) { setRequiredLength($rec.getRequiredLength() - 0.1),
+                   setNote($rec.getNote() + " - slim kroj sa rastegljivošću") }
+end
