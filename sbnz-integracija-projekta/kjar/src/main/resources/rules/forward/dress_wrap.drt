@@ -1,0 +1,22 @@
+template header
+dressType
+wrap
+correction
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress wrap correction"
+rule "Wrap correction for @{dressType}-@{wrap}"
+when
+    $df : DressFabric(dress.type == "@{dressType}", dress.wrap == @{wrap})
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " + wrap opcija")
+    }
+end
+end template

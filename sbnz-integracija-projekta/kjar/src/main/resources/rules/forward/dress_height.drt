@@ -1,0 +1,23 @@
+template header
+minHeight
+maxHeight
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress height correction"
+rule "Height @{minHeight}-@{maxHeight}"
+when
+    $df : DressFabric(dress.height >= @{minHeight}, dress.height <= @{maxHeight})
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

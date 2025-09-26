@@ -5,22 +5,24 @@ public class Dress extends Garment {
     private int waist;
     private int hips;
     private int length;
-    private boolean hasSleeves;
-    private int sleeveLength;
+    private String sleeveType;
     private int shoulder;
     private String type; // A-line, Circle, Bodycon, Shift
     private int height;
+    private boolean wrap;
 
-    public Dress(int bust, int waist, int hips, int length, boolean hasSleeves, int sleeveLength, int shoulder, String type, int height) {
+    public Dress() {}
+
+    public Dress(int bust, int waist, int hips, int length, String sleeveType, int shoulder, String type, int height, boolean wrap) {
         this.bust = bust;
         this.waist = waist;
         this.hips = hips;
         this.length = length;
-        this.hasSleeves = hasSleeves;
-        this.sleeveLength = sleeveLength;
+        this.sleeveType = sleeveType;
         this.shoulder = shoulder;
         this.type = type;
         this.height = height;
+        this.wrap = wrap;
     }
 
     public int getBust() {
@@ -55,20 +57,12 @@ public class Dress extends Garment {
         this.length = length;
     }
 
-    public boolean isHasSleeves() {
-        return hasSleeves;
+    public String getSleeveType() {
+        return sleeveType;
     }
 
-    public void setHasSleeves(boolean hasSleeves) {
-        this.hasSleeves = hasSleeves;
-    }
-
-    public int getSleeveLength() {
-        return sleeveLength;
-    }
-
-    public void setSleeveLength(int sleeveLength) {
-        this.sleeveLength = sleeveLength;
+    public void setSleeveType(String sleeveType) {
+        this.sleeveType = sleeveType;
     }
 
     public int getShoulder() {
@@ -93,5 +87,30 @@ public class Dress extends Garment {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public boolean isWrap() {
+        return wrap;
+    }
+
+    public void setWrap(boolean wrap) {
+        this.wrap = wrap;
+    }
+
+    @Override
+    public String toString() {
+        return "Dress{" +
+                "bust=" + bust +
+                ", waist=" + waist +
+                ", hips=" + hips +
+                ", length=" + length +
+                ", sleeveType='" + sleeveType + '\'' +
+                ", shoulder=" + shoulder +
+                ", type='" + type + '\'' +
+                ", height=" + height +
+                ", wrap=" + wrap +
+                ", color='" + color + '\'' +
+                ", fit='" + fit + '\'' +
+                '}';
     }
 }

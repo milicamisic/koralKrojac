@@ -1,6 +1,8 @@
 package com.ftn.sbnz.service.controller;
 
+import com.ftn.sbnz.model.models.Dress;
 import com.ftn.sbnz.model.models.TShirt;
+import com.ftn.sbnz.service.dto.DressRequest;
 import com.ftn.sbnz.service.dto.RecommendationDTO;
 import com.ftn.sbnz.service.service.RecommendationService;
 import com.ftn.sbnz.service.dto.TShirtRequest;
@@ -35,4 +37,20 @@ public class RecommendationController {
 
         return recommendationService.recommendTShirt(tshirt);
     }
+
+    @PostMapping("/dress")
+    public List<RecommendationDTO> recommendDress(@RequestBody DressRequest request) {
+        Dress dress = new Dress();
+        dress.setType(request.getType());
+        dress.setBust(request.getBust());
+        dress.setHips(request.getHips());
+        dress.setShoulder(request.getShoulder());
+        dress.setHeight(request.getHeight());
+        dress.setLength(request.getLength());
+        dress.setWrap(request.isWrap());
+        dress.setSleeveType(request.getSleeveType());
+
+        return recommendationService.recommendDress(dress);
+    }
+
 }
