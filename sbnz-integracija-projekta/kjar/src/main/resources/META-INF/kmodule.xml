@@ -2,13 +2,11 @@
     <kbase name="forwardBase" packages="forward">
         <ksession name="forwardKsession"/>
     </kbase>
-<!--    <kbase name="templateBase" packages="template">-->
-<!--        <ksession name="templateKsession"/>-->
-<!--    </kbase>-->
-<!--    <kbase name="bwBase" packages="backward">-->
-<!--        <ksession name="bwKsession"/>-->
-<!--    </kbase>-->
-<!--    <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">-->
-<!--        <ksession name="cepKsession" clockType="pseudo"/>-->
-<!--    </kbase>-->
+    <kbase name="cepBase" eventProcessingMode="stream" packages="cep">
+        <ksession name="cepKsession" clockType="pseudo"/>
+<!--        <ksession name="cepKsession" clockType="realtime"/>-->
+<!--        pseudo = za testiranje, simulira vreme
+            realtime = za produkciju
+-->
+    </kbase>
 </kmodule>

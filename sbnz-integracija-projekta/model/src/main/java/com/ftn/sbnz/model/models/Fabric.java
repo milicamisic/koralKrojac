@@ -1,5 +1,7 @@
 package com.ftn.sbnz.model.models;
 
+import com.ftn.sbnz.model.models.enums.Season;
+
 import java.io.Serializable;
 
 public class Fabric implements Serializable {
@@ -20,12 +22,15 @@ public class Fabric implements Serializable {
     private double pricePerMeter;          // cena po metru
     private int inStock;                   // dostupna količina
 
+    // zbog stagnacije
+    private Season season; // WINTER, SUMMER, UNIVERSAL
+
     public Fabric() {}
 
     public Fabric(Long id, String name, String type, int width,
                   double stretchPercentage, double shrinkagePercentage,
                   boolean hasNap, String drape, int gsm,
-                  String category, double pricePerMeter, int inStock) {
+                  String category, double pricePerMeter, int inStock, Season season) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -38,6 +43,7 @@ public class Fabric implements Serializable {
         this.category = category;
         this.pricePerMeter = pricePerMeter;
         this.inStock = inStock;
+        this.season = season;
     }
 
     // Getteri i setteri
@@ -77,6 +83,14 @@ public class Fabric implements Serializable {
     public int getInStock() { return inStock; }
     public void setInStock(int inStock) { this.inStock = inStock; }
 
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
     @Override
     public String toString() {
         return "Fabric{" +
@@ -92,6 +106,7 @@ public class Fabric implements Serializable {
                 ", category='" + category + '\'' +
                 ", pricePerMeter=" + pricePerMeter +
                 ", inStock=" + inStock +
+                ", season='" + season + '\'' +
                 '}';
     }
 }

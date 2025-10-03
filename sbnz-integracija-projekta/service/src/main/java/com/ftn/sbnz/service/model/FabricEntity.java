@@ -1,5 +1,7 @@
 package com.ftn.sbnz.service.model;
 
+import com.ftn.sbnz.model.models.enums.Season;
+
 import javax.persistence.*;
 
 @Entity
@@ -43,9 +45,12 @@ public class FabricEntity {
     @Column(name = "in_stock")
     private int inStock;
 
+    @Column(name = "season")
+    private Season season;
+
     public FabricEntity() { }
 
-    public FabricEntity(Long id, String name, String type, int width, double stretchPercentage, double shrinkagePercentage, boolean hasNap, String drape, int gsm, String category, double pricePerMeter, int inStock) {
+    public FabricEntity(Long id, String name, String type, int width, double stretchPercentage, double shrinkagePercentage, boolean hasNap, String drape, int gsm, String category, double pricePerMeter, int inStock, Season season) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -58,6 +63,7 @@ public class FabricEntity {
         this.category = category;
         this.pricePerMeter = pricePerMeter;
         this.inStock = inStock;
+        this.season = season;
     }
 
     public Long getId() {
@@ -154,5 +160,13 @@ public class FabricEntity {
 
     public void setInStock(int inStock) {
         this.inStock = inStock;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 }
