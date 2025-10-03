@@ -3,6 +3,7 @@ dialect  "java"
 
 import com.ftn.sbnz.model.events.SaleEvent;
 import com.ftn.sbnz.model.events.PurchaseEvent;
+import com.ftn.sbnz.model.events.StockAlert;
 import com.ftn.sbnz.model.models.Fabric;
 import com.ftn.sbnz.model.models.enums.Season;
 import com.ftn.sbnz.model.util.SeasonUtils;
@@ -21,6 +22,7 @@ end
 rule "Rast prodaje (7d > 2x prethodnih 7d)"
 when
     $s : SaleEvent( $fabric : fabricName )
+    not StockAlert(fabric == $fabric, type == "DEMAND_SPIKE_7D")
     $sum14 : Number() from accumulate(
         SaleEvent( fabricName == $fabric, $q : quantity ) over window:time(14d),
         sum($q)
@@ -42,14 +44,19 @@ when
     )
 then
     System.out.println("Nagli rast prodaje za: " + $fabric +
-        " | poslednjih 7 dana=" + $sum7 +
-        " | prethodnih 7 dana=" + ($sum14.doubleValue() - $sum7.doubleValue()));
+                                    " | poslednjih 7 dana=" + $sum7 +
+                                    " | prethodnih 7 dana=" + ($sum14.doubleValue() - $sum7.doubleValue()));
+    insertLogical(new StockAlert($fabric, "DEMAND_SPIKE_7D",
+            "Nagli rast prodaje za: " + $fabric +
+            " | poslednjih 7 dana=" + $sum7 +
+            " | prethodnih 7 dana=" + ($sum14.doubleValue() - $sum7.doubleValue())));
 end
 
 
 rule "Prodaja veća od nabavke (30 dana)"
 when
     $s : SaleEvent( $fabric : fabricName )
+    not StockAlert(fabric == $fabric, type == "SALES_OVER_PURCHASES")
     $sumSales : Number() from accumulate(
         SaleEvent( fabricName == $fabric, $q : quantity ) over window:time(30d),
         sum($q)
@@ -61,6 +68,8 @@ when
     eval( $sumSales.doubleValue() > $sumPurchases.doubleValue() )
 then
     System.out.println("Prodaja > nabavke za: " + $fabric + " (30 dana)");
+    insertLogical(new StockAlert($fabric, "SALES_OVER_PURCHASES",
+            "Prodaja > nabavke za: " + $fabric + " (30 dana)"));
 end
 
 
@@ -68,7 +77,7 @@ rule "Dugotrajna stagnacija materijala (60d bez prodaje)"
 when
     // 1) Uzmemo materijal iz baze znanja
     $fabric : Fabric( $fname : name, $season : season )
-
+    not StockAlert(fabric == $fname, type == "STAGNATION")
     // 2) Za njega nije bilo prodaje u poslednjih 60 dana
     not SaleEvent( fabricName == $fname ) over window:time(60d)
 
@@ -80,13 +89,15 @@ when
     )
 then
     System.out.println("Stagnacija 60 dana → predlog rasprodaje/izbacivanja: " + $fname);
-    // u praksi: insert(new StockAdvice($fname, "STAGNATION"));
+    insertLogical(new StockAlert($fname, "STAGNATION",
+            "Stagnacija 60 dana → predlog rasprodaje/izbacivanja: " + $fname));
 end
 
 
 rule "Nagla potražnja"
 when
     $s : SaleEvent( $fabric : fabricName )
+    not StockAlert(fabric == $fabric, type == "DEMAND_SPIKE")
     $salesCount : Number() from accumulate(
         SaleEvent( fabricName == $fabric, $q : quantity ) over window:time(10m),
         count($q)
@@ -95,5 +106,9 @@ when
         $salesCount.intValue() >= 3
     )
 then
-    System.out.println("Nagla potražnja za materijal: " + $fabric + " | broj prodaja=" + $salesCount);
+    System.out.println("Nagla potražnja za materijal: " + $fabric +
+                              " | broj prodaja=" + $salesCount);
+    insertLogical(new StockAlert($fabric, "DEMAND_SPIKE",
+           "Nagla potražnja za materijal: " + $fabric +
+           " | broj prodaja=" + $salesCount));
 end
