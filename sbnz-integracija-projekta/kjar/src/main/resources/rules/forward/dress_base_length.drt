@@ -11,6 +11,9 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Dress base length"
 rule "Dress base @{dressType} length @{minLength}-@{maxLength}"
+    no-loop true
+    agenda-group "dress-base"
+    lock-on-active true
 when
     $df : DressFabric(
         dressType == "@{dressType}",

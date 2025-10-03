@@ -11,6 +11,9 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Dress shoulder correction"
 rule "Shoulder @{minShoulder}-@{maxShoulder}"
+    no-loop true
+    agenda-group "dress-corrections"
+    lock-on-active true
 when
     $df : DressFabric(
         dress.shoulder >= @{minShoulder},
@@ -18,9 +21,6 @@ when
     )
     $rec : Recommendation(fabric == $df.fabric)
 then
-    modify($rec) {
-        setRequiredLength($rec.getRequiredLength() + @{correction}),
-        setNote($rec.getNote() + " " + "@{note}")
-    }
+    modify($rec) { applyCorrection(@{correction}, "@{note}") }
 end
 end template

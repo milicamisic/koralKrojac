@@ -36,4 +36,13 @@ public class Recommendation {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public void applyCorrection(double correction, String note) {
+        this.requiredLength += correction;
+        if (this.note == null) {
+            this.note = note;
+        } else {
+            this.note += " " + note;
+        }
+    }
 }

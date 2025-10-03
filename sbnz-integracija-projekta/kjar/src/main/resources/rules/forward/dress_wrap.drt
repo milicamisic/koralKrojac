@@ -10,13 +10,14 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Dress wrap correction"
 rule "Wrap correction for @{dressType}-@{wrap}"
+    no-loop true
+    agenda-group "dress-corrections"
+    lock-on-active true
 when
     $df : DressFabric(dress.type == "@{dressType}", dress.wrap == @{wrap})
     $rec : Recommendation(fabric == $df.fabric)
 then
-    modify($rec) {
-        setRequiredLength($rec.getRequiredLength() + @{correction}),
-        setNote($rec.getNote() + " + wrap opcija")
-    }
+    modify($rec) { applyCorrection(@{correction}, "wrap opcija") }
+
 end
 end template

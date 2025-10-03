@@ -11,13 +11,13 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Dress bust correction"
 rule "Bust correction @{minBust}-@{maxBust}"
+    no-loop true
+    agenda-group "dress-corrections"
+    lock-on-active true
 when
     $df : DressFabric(dress.bust >= @{minBust}, dress.bust <= @{maxBust})
     $rec : Recommendation(fabric == $df.fabric)
 then
-    modify($rec) {
-        setRequiredLength($rec.getRequiredLength() + @{correction}),
-        setNote($rec.getNote() + " " + "@{note}")
-    }
+    modify($rec) { applyCorrection(@{correction}, "@{note}") }
 end
 end template

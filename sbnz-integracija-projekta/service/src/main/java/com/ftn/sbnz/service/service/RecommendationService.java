@@ -78,8 +78,11 @@ public class RecommendationService {
         }
 //        fabrics.forEach(f -> kieSession.insert(new DressFabric(dress, f)));
 
-        int fired = kieSession.fireAllRules();
-        System.out.println("Pokrenuto pravila za dress: " + fired);
+        kieSession.getAgenda().getAgendaGroup("dress-base").setFocus();
+        kieSession.fireAllRules();
+
+        kieSession.getAgenda().getAgendaGroup("dress-corrections").setFocus();
+        kieSession.fireAllRules();
 
         Collection<?> facts = kieSession.getObjects(o -> o instanceof Recommendation);
         for (Object o : facts) {
