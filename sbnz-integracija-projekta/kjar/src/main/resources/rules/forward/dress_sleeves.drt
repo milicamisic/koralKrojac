@@ -1,0 +1,22 @@
+template header
+sleeveType
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress sleeves correction"
+rule "Sleeves @{sleeveType}"
+when
+    $df : DressFabric(dress.sleeveType == "@{sleeveType}")
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

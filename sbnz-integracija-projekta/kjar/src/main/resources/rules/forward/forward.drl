@@ -5,6 +5,8 @@ import com.ftn.sbnz.model.models.TShirt
 import com.ftn.sbnz.model.models.Fabric
 import com.ftn.sbnz.model.models.TShirtFabric
 import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.DressFabric
+
 
 // =========================
 // Filter – pravimo ClothingFabric od TShirtFabric ako je CLOTHING

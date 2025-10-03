@@ -2,6 +2,9 @@
     <kbase name="forwardBase" packages="forward">
         <ksession name="forwardKsession"/>
     </kbase>
+<!--    <kbase name="templateBase" packages="template">-->
+<!--        <ksession name="templateKsession"/>-->
+<!--    </kbase>-->
 <!--    <kbase name="bwBase" packages="backward">-->
 <!--        <ksession name="bwKsession"/>-->
 <!--    </kbase>-->
