@@ -11,18 +11,18 @@ import java.time.ZoneId;
 @Role(Role.Type.EVENT)
 @Timestamp("timestamp")
 @Expires("90d")
-public class SaleEvent {
+public class PurchaseEvent {
     private String fabricName;
     private double quantity;
     private long timestamp;
 
-    public SaleEvent(String fabricName, double quantity) {
+    public PurchaseEvent(String fabricName, double quantity) {
         this.fabricName = fabricName;
         this.quantity = quantity;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = System.currentTimeMillis(); // default sada
     }
 
-    public SaleEvent(String fabricName, double quantity, long timestamp) {
+    public PurchaseEvent(String fabricName, double quantity, long timestamp) {
         this.fabricName = fabricName;
         this.quantity = quantity;
         this.timestamp = timestamp;
@@ -60,11 +60,10 @@ public class SaleEvent {
 
     @Override
     public String toString() {
-        return "SaleEvent{" +
+        return "PurchaseEvent{" +
                 "fabricName='" + fabricName + '\'' +
                 ", quantity=" + quantity +
                 ", timestamp=" + toLocalDateTime() +
                 '}';
     }
 }
-

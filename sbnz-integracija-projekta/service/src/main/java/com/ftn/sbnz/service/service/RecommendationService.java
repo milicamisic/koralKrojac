@@ -23,36 +23,32 @@ import java.util.stream.Collectors;
 public class RecommendationService {
 
     private final FabricService fabricService;
-    private final KieContainer kieContainer;
+    private final KieSession forwardKsession;
 
-    public RecommendationService(FabricService fabricService, KieContainer kieContainer) {
+    @Autowired
+    public RecommendationService(FabricService fabricService, KieSession forwardKsession) {
         this.fabricService = fabricService;
-        this.kieContainer = kieContainer;
+        this.forwardKsession = forwardKsession;
     }
 
     public List<RecommendationDTO> recommendTShirt(TShirt tshirt) {
         List<Fabric> fabrics = fabricService.findAll();
         List<RecommendationDTO> recommendations = new ArrayList<>();
 
-        // 1. Nova sesija za svaki request
-        KieSession kieSession = kieContainer.newKieSession();
+        // 🔹 Nova sesija za svaki request (koristimo kopiju forwardKsession-a)
+        KieSession kieSession = forwardKsession.getKieBase().newKieSession();
 
-        // 2. Insert facts
         fabrics.forEach(f -> kieSession.insert(new TShirtFabric(tshirt, f)));
 
-        // 3. Pokreni pravila
         int fired = kieSession.fireAllRules();
         System.out.println("Pokrenuto pravila: " + fired);
 
-        // 4. Pokupi rezultate iz sesije
         Collection<?> facts = kieSession.getObjects(o -> o instanceof Recommendation);
         for (Object o : facts) {
             recommendations.add(RecommendationMapper.toDTO((Recommendation) o));
         }
 
-        // 5. Očisti sesiju
         kieSession.dispose();
-
         return recommendations;
     }
 
@@ -60,23 +56,17 @@ public class RecommendationService {
         List<Fabric> fabrics = fabricService.findAll();
         List<RecommendationDTO> recommendations = new ArrayList<>();
 
-        KieSession kieSession = kieContainer.newKieSession();
+        // 🔹 Ponovo koristimo novu instancu sesije
+        KieSession kieSession = forwardKsession.getKieBase().newKieSession();
 
+        // Debug – ispiši sva pravila
         for (KiePackage kp : kieSession.getKieBase().getKiePackages()) {
             for (Rule r : kp.getRules()) {
                 System.out.println("Loaded rule: " + r.getName());
             }
         }
 
-        List<DressFabric> data = new ArrayList<>();
-        for(Fabric f : fabrics) {
-            data.add(new DressFabric(dress, f));
-        }
-        for(DressFabric d : data) {
-            kieSession.insert(d);
-            System.out.println(d);
-        }
-//        fabrics.forEach(f -> kieSession.insert(new DressFabric(dress, f)));
+        fabrics.forEach(f -> kieSession.insert(new DressFabric(dress, f)));
 
         int fired = kieSession.fireAllRules();
         System.out.println("Pokrenuto pravila za dress: " + fired);
@@ -87,9 +77,6 @@ public class RecommendationService {
         }
 
         kieSession.dispose();
-
         return recommendations;
     }
-
-
 }

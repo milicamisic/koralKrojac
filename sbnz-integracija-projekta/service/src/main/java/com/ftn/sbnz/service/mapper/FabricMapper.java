@@ -17,7 +17,8 @@ public class FabricMapper {
                 entity.getGsm(),
                 entity.getCategory(),
                 entity.getPricePerMeter(),
-                entity.getInStock()
+                entity.getInStock(),
+                entity.getSeason()
         );
     }
 
@@ -35,6 +36,7 @@ public class FabricMapper {
         entity.setCategory(model.getCategory());
         entity.setPricePerMeter(model.getPricePerMeter());
         entity.setInStock(model.getInStock());
+        entity.setSeason(model.getSeason());
         return entity;
     }
 }
