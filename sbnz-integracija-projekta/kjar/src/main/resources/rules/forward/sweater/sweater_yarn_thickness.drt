@@ -1,0 +1,26 @@
+template header
+yarnThickness
+multiplier
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater yarn thickness"
+rule "Sweater yarn thickness @{yarnThickness}"
+when
+    $sf : SweaterFabric(
+        yarnThickness == "@{yarnThickness}",
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{multiplier},
+        "@{note}"
+    );
+    insert(rec);
+end
+end template

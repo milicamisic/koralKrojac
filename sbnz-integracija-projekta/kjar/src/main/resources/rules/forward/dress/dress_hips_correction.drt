@@ -1,0 +1,30 @@
+template header
+dressType
+minHips
+maxHips
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress hips correction"
+rule "Hips correction @{dressType} @{minHips}-@{maxHips}"
+    salience 85
+when
+    $df : DressFabric(
+        dress.type == "@{dressType}",
+        dress.hips >= @{minHips},
+        dress.hips <= @{maxHips}
+    )
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina kukovi korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

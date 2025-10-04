@@ -1,0 +1,46 @@
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.TableclothFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.util.TableclothUtils
+
+// Pravougaoni ili kvadratni sto
+rule "Tablecloth rectangle/square"
+when
+    $tf : TableclothFabric(
+        (shape == "RECTANGLE" || shape == "SQUARE"),
+        getFabricCategory() == "DECORATION"
+    )
+then
+    double meters = TableclothUtils.rectangleFabricMeters(
+        $tf.getLength(),
+        $tf.getWidth(),
+        $tf.getOverhang(),
+        $tf.getFabricWidth()
+    );
+    insert(new Recommendation($tf.getFabric(), meters,
+        "Stolnjak (" + $tf.getShape() + ") " +
+        "dužina=" + (int)$tf.getLength() + "cm, " +
+        "širina=" + (int)$tf.getWidth()  + "cm, " +
+        "previs=" + (int)$tf.getOverhang() + "cm"));
+end
+
+// Okrugli sto (+10% otpad)
+rule "Tablecloth round (+10% waste)"
+when
+    $tf : TableclothFabric(
+        shape == "ROUND",
+        getFabricCategory() == "DECORATION"
+    )
+then
+    double meters = TableclothUtils.roundFabricMetersWithWaste(
+        $tf.getDiameter(),
+        $tf.getOverhang(),
+        $tf.getFabricWidth()
+    );
+    insert(new Recommendation($tf.getFabric(), meters,
+        "Stolnjak (okrugli) prečnik=" + (int)$tf.getDiameter() + "cm, " +
+        "previs=" + (int)$tf.getOverhang() + "cm (uključeno +10% otpada)"));
+end

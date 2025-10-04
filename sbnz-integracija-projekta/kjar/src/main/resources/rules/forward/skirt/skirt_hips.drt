@@ -1,0 +1,19 @@
+template header
+skirtType
+hipsMin
+hipsMax
+correction
+note
+
+package templates
+import com.ftn.sbnz.model.models.Skirt;
+import com.ftn.sbnz.model.models.Recommendation;
+
+template "Skirt Hips Correction"
+rule "Hips correction for @{skirtType} @{hipsMin}-@{hipsMax}"
+when
+    $s : Skirt(type == "@{skirtType}", hips >= @{hipsMin}, hips < @{hipsMax})
+then
+    insert(new Recommendation($s.getFabric(), @{correction}, "@{note}"));
+end
+end template

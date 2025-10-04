@@ -1,0 +1,240 @@
+package forward;
+dialect  "java"
+
+// === Imports ===
+import com.ftn.sbnz.model.models.Fabric;
+import com.ftn.sbnz.model.models.FabricRecommendation;
+
+// wrapper-i (ubaci samo one koje imaš u modelu; ostale možeš obrisati ili dodati)
+import com.ftn.sbnz.model.models.ShirtFabric;
+import com.ftn.sbnz.model.models.BlouseFabric;
+import com.ftn.sbnz.model.models.DressFabric;
+import com.ftn.sbnz.model.models.SkirtFabric;
+import com.ftn.sbnz.model.models.PantsFabric;
+import com.ftn.sbnz.model.models.SweaterFabric;
+import com.ftn.sbnz.model.models.CurtainFabric;
+
+rule "Nap (hasNap=true) → +15%"
+    no-loop true
+//    lock-on-active true
+when
+    $r : FabricRecommendation( fabric.hasNap )
+then
+    System.out.println("[RULE FIRED] Nap (hasNap=true) → +15% " + $r.getFabric().getName());
+    modify ($r) {
+        setRequiredLength( $r.getRequiredLength() * 1.15 ),
+        setNote( $r.getNote() + " | Materijal ima pravac dezena (nap) → +15%")
+    }
+end
+
+rule "Shrinkage correction"
+    no-loop true
+//    lock-on-active true
+when
+    $r : FabricRecommendation( $f: fabric, fabric.getShrinkagePercentage() > 0.0 )
+then
+    System.out.println("[RULE FIRED] Shrinkage correction " + $f.getName());
+    double factor = 1.0 + ($f.getShrinkagePercentage() / 100.0);
+    modify ($r) {
+        setRequiredLength( $r.getRequiredLength() * factor ),
+        setNote($r.getNote() + " | Skupljanje nakon pranja " + $f.getShrinkagePercentage() + "%")
+    }
+end
+
+// Low drape → nije preporučeno za circle/lepršave haljine/suknje
+rule "Low drape → flowy garments not recommended"
+when
+    $r : FabricRecommendation(
+        ((garmentCategory == "Dress" || garmentCategory == "Skirt") && garmentSubtype == "Circle"),
+        (garmentCategory == "Shirt" || garmentCategory == "Blouse"),
+        fabric.drape == "low"
+    )
+then
+    System.out.println("[RETRACT] " + $r.getFabric().getName() +
+        " ima nizak pad – nije pogodan za lepršave krojeve.");
+    retract($r);
+end
+
+rule "GSM <100> → too light for pants"
+when
+    $r : FabricRecommendation(
+        $f : fabric,
+        garmentCategory == "Pants",
+        $f.gsm < 100
+    )
+then
+    System.out.println("[RETRACT] " + $f.getName() +
+        " – prelak (<100 gsm), nije dovoljno čvrst za pantalone.");
+    retract($r);
+end
+
+rule "GSM >300 → too heavy for flowy garments"
+when
+    $r : FabricRecommendation(
+        $f : fabric,
+        (garmentCategory == "Dress" || garmentCategory == "Skirt"),
+        $f.gsm > 300
+    )
+then
+    System.out.println("[RETRACT] " + $f.getName() +
+        " je pretežak (>300 gsm) za lepršave haljine/suknje.");
+    retract($r);
+end
+
+rule "Material suitability for Dress"
+when
+    $r : FabricRecommendation(
+        garmentCategory == "Dress",
+        $sub : garmentSubtype,
+        $f : fabric,
+        (
+            ($sub == "A-line" &&
+            !($f.type == "Pamuk" ||
+              $f.type == "Viskoza" ||
+              $f.type == "Lan" ||
+              $f.type == "Sintetika"))
+            ||
+            ($sub == "Circle" &&
+            !($f.type == "Viskoza" ||
+              $f.type == "Lan" ||
+              $f.type == "Sintetika"))
+            ||
+            ($sub == "Bodycon" &&
+            !($f.type == "Viskoza" ||
+              $f.type == "Sintetika"))
+            ||
+            ($sub == "Shift" &&
+            !($f.type == "Pamuk" ||
+              $f.type == "Viskoza" ||
+              $f.type == "Lan" ||
+              $f.type == "Sintetika"))
+        )
+    )
+then
+    System.out.println("✖ " + $f.getName() + " nije pogodan za " + $sub + " haljinu.");
+    retract($r);
+end
+
+
+// --- SHIRT (majice) dozvoljeni: Pamuk, Viskoza, Sintetika
+rule "Material suitability for Shirt"
+when
+    $wrap : ShirtFabric($f : fabric)
+    $r : FabricRecommendation(fabric == $f,
+        !($f.type == "Pamuk" ||
+          $f.type == "Viskoza" ||
+          $f.type == "Sintetika")
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije uobičajen za majice.");
+    retract($r);
+end
+
+// --- BLOUSE (košulje) dozvoljeni: Pamuk, Viskoza, Lan, Sintetika
+rule "Material suitability for Blouse"
+when
+    $wrap : BlouseFabric($f : fabric)
+    $r : FabricRecommendation(fabric == $f,
+        !($f.type == "Pamuk" ||
+          $f.type == "Viskoza" ||
+          $f.type == "Lan" ||
+          $f.type == "Sintetika")
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije uobičajen za košulje.");
+    retract($r);
+end
+
+
+// --- SKIRT (suknje) dozvoljeni: Pamuk, Viskoza, Lan, Sintetika
+rule "Material suitability for Skirt"
+when
+    $wrap : SkirtFabric($f : fabric)
+    $r : FabricRecommendation(
+        fabric == $f,
+        !($f.type == "Pamuk" ||
+          $f.type == "Viskoza" ||
+          $f.type == "Lan" ||
+          $f.type == "Sintetika")
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije uobičajen za suknje.");
+    retract($r);
+end
+
+
+// --- PANTS (pantalone): Pamuk (i slim samo ako stretch ≥10%), Lan, Sintetika; Viskoza za široke
+// (Ovde samo opšta napomena; specifične fit/stretch uslove možeš dodati u zasebna pravila)
+rule "Material suitability for Pants"
+when
+    $wrap : PantsFabric($f : fabric)
+    $r : FabricRecommendation(
+        fabric == $f,
+        !($f.type == "Pamuk" ||
+          $f.type == "Lan" ||
+          $f.type == "Sintetika" ||
+          $f.type == "Viskoza")
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije uobičajen za pantalone.");
+    retract($r);
+end
+
+// --- CURTAINS (zavese): Viskoza, Lan, Sintetika, Pamuk (češće dekor)
+//  (oslanjamo se i na fabric.category == "HOME_DECOR" u tvojim curtain pravilima)
+rule "Material suitability for Curtains"
+when
+    $wrap : CurtainFabric($f : fabric)
+    $r : FabricRecommendation(
+        fabric == $f,
+        !($f.type == "Viskoza" ||
+          $f.type == "Lan" ||
+          $f.type == "Sintetika")
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije uobičajen za zavese.");
+    retract($r);
+end
+
+// --- SWEATER/JUMPER (džemper): Vuna
+rule "Material suitability for Sweater"
+when
+    $wrap : SweaterFabric($f : fabric)
+    $r : FabricRecommendation(
+        fabric == $f,
+        $f.type != "Vuna"
+    )
+then
+    System.out.println("Napomena: " + $f.getName() + " nije pogodan – za džempere se koristi samo vuna.");
+    retract($r);
+end
+
+rule "Stretch check for slim tee"
+when
+    $wrap : ShirtFabric($f : fabric, $tee : shirt)
+    $r : FabricRecommendation(
+        fabric == $f,
+        $tee.fit == "Slim",
+        $f.stretchPercentage < 10.0
+    )
+then
+    System.out.println("Upozorenje: " + $f.getName() +
+        " nije pogodan za uzak kroj (rastegljivost <10%).");
+    retract($r);
+end
+// ako ne budu radila ova za druge predmete samo izbacis sve te ShirtFabric, PantsFabric.. i sve stavis preko FabricRecommendation
+rule "Stretch benefit for slim tee"
+when
+    $wrap : ShirtFabric($f : fabric, $tee : shirt)
+    $r : FabricRecommendation(
+        fabric == $f,
+        $tee.fit == "Slim",
+        $f.stretchPercentage >= 10.0
+    )
+then
+    System.out.println("[RULE FIRED] Stretch benefit for slim tee " + $f.getName());
+    modify($r) {
+        setRequiredLength(Math.max(0.0, $r.getRequiredLength() - 0.1)),
+        setNote("Slim + rastegljivo (≥10%) → smanjenje za 0.1 m")
+    }
+end

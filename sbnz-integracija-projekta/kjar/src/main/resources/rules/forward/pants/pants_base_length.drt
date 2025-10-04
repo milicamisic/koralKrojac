@@ -1,0 +1,20 @@
+template header
+hipsMin
+hipsMax
+baseLength
+note
+
+package templates.pants
+
+import com.ftn.sbnz.model.models.Pants
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Pants base length by hips"
+rule "Pants base length hips @{hipsMin}-@{hipsMax}"
+when
+    $p : Pants( hips >= @{hipsMin}, hips <= @{hipsMax}, fabric.category == "CLOTHING" )
+then
+    Recommendation rec = new Recommendation($p.getFabric(), @{baseLength}, "@{note}");
+    insert(rec);
+end
+end template

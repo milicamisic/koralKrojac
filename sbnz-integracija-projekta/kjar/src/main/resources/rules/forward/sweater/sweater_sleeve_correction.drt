@@ -1,0 +1,27 @@
+template header
+sleeveMin
+sleeveMax
+correction
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater sleeve correction"
+rule "Sweater sleeve correction @{sleeveMin}-@{sleeveMax}"
+when
+    $sf : SweaterFabric(
+        sleeveLength >= @{sleeveMin},
+        sleeveLength <= @{sleeveMax},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{correction},
+        "Korekcija po rukavima dužine " + $sf.getSleeveLength()
+    );
+    insert(rec);
+end
+end template

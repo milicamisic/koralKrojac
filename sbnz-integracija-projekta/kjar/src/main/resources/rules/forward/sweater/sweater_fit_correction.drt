@@ -1,0 +1,28 @@
+template header
+fitType
+stretch
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater fit correction"
+rule "Sweater fit @{fitType} stretch @{stretch}"
+when
+    $sf : SweaterFabric(
+        fitType == "@{fitType}",
+        stretchPercent >= @{stretch},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{correction},
+        "@{note}"
+    );
+    insert(rec);
+end
+end template

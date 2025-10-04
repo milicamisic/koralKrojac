@@ -1,0 +1,32 @@
+template header
+dressType
+wrap
+correction
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
+
+template "Dress wrap correction"
+rule "Wrap correction for @{dressType}-@{wrap}"
+    salience 70
+when
+    $df : DressFabric(dress.type == "@{dressType}", dress.wrap == @{wrap})
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina wrap korekcija");
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength() + @{correction},
+        $rec.getNote() + " + wrap opcija",
+        "Dress",
+        $df.getDress().getType()
+    );
+    System.out.println("[INSERT] Ubacujem FabricRecommendation za: " + $rec.getFabric().getName());
+    insert(fr);
+    System.out.println("[INSERTED] FabricRecommendation inserted");
+    System.out.println(fr);
+end
+end template

@@ -1,22 +1,26 @@
 package com.ftn.sbnz.model.models;
 
-public class Shirt extends Garment {
+public class Blouse extends Garment {
     private int bust;
     private int waist;
     private int torsoLength;
-    private int shoulder;
-    private boolean hasSleeves;
     private int sleeveLength;
+    private int shoulder;
+    private int neck;
+    private boolean hasSleeves;
+    private String collarType; // klasična, mandarinska, oversized, bez
 
-    public Shirt() {}
+    public Blouse() {}
 
-    public Shirt(int bust, int waist, int torsoLength, int shoulder, boolean hasSleeves, int sleeveLength) {
+    public Blouse(int bust, int waist, int torsoLength, int sleeveLength, int shoulder, int neck, boolean hasSleeves, String collarType) {
         this.bust = bust;
         this.waist = waist;
         this.torsoLength = torsoLength;
-        this.shoulder = shoulder;
-        this.hasSleeves = hasSleeves;
         this.sleeveLength = sleeveLength;
+        this.shoulder = shoulder;
+        this.neck = neck;
+        this.hasSleeves = hasSleeves;
+        this.collarType = collarType;
     }
 
     public int getBust() {
@@ -43,12 +47,28 @@ public class Shirt extends Garment {
         this.torsoLength = torsoLength;
     }
 
+    public int getSleeveLength() {
+        return sleeveLength;
+    }
+
+    public void setSleeveLength(int sleeveLength) {
+        this.sleeveLength = sleeveLength;
+    }
+
     public int getShoulder() {
         return shoulder;
     }
 
     public void setShoulder(int shoulder) {
         this.shoulder = shoulder;
+    }
+
+    public int getNeck() {
+        return neck;
+    }
+
+    public void setNeck(int neck) {
+        this.neck = neck;
     }
 
     public boolean isHasSleeves() {
@@ -59,25 +79,11 @@ public class Shirt extends Garment {
         this.hasSleeves = hasSleeves;
     }
 
-    public int getSleeveLength() {
-        return sleeveLength;
+    public String getCollarType() {
+        return collarType;
     }
 
-    public void setSleeveLength(int sleeveLength) {
-        this.sleeveLength = sleeveLength;
-    }
-
-    @Override
-    public String toString() {
-        return "Shirt{" +
-                "fit='" + fit + '\'' +
-                ", color='" + color + '\'' +
-                ", sleeveLength=" + sleeveLength +
-                ", hasSleeves=" + hasSleeves +
-                ", shoulder=" + shoulder +
-                ", torsoLength=" + torsoLength +
-                ", waist=" + waist +
-                ", bust=" + bust +
-                '}';
+    public void setCollarType(String collarType) {
+        this.collarType = collarType;
     }
 }

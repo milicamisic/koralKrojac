@@ -1,0 +1,15 @@
+template header
+torsoMin
+torsoMax
+correction
+note
+
+template "Blouse Torso Correction"
+rule "Blouse Torso Correction @{row.rowNumber}"
+when
+    $blouse : Blouse( torso >= @{torsoMin}, torso < @{torsoMax} )
+then
+    modify($blouse) { addCorrection(@{correction}); }
+    System.out.println("Blouse torso correction: @{note}");
+end
+end template

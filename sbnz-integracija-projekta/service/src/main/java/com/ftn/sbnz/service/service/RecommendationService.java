@@ -71,9 +71,9 @@ public class RecommendationService {
         int fired = kieSession.fireAllRules();
         System.out.println("Pokrenuto pravila za dress: " + fired);
 
-        Collection<?> facts = kieSession.getObjects(o -> o instanceof Recommendation);
+        Collection<?> facts = kieSession.getObjects(o -> o instanceof FabricRecommendation);
         for (Object o : facts) {
-            recommendations.add(RecommendationMapper.toDTO((Recommendation) o));
+            recommendations.add(RecommendationMapper.toDTO((FabricRecommendation) o));
         }
 
         kieSession.dispose();

@@ -1,0 +1,27 @@
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.PillowcaseFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.util.PillowcaseUtils
+
+rule "Pillowcase calculation"
+when
+    $pf : PillowcaseFabric(
+        getFabricCategory() == "BEDDING"
+    )
+then
+    double meters = PillowcaseUtils.pillowcaseMeters(
+        $pf.getLength(),
+        $pf.getWidth(),
+        $pf.getFabricWidth()
+    );
+
+    insert(new Recommendation(
+        $pf.getFabric(),
+        meters,
+        "Jastučnica – dužina " + $pf.getLength() +
+        " cm, širina " + $pf.getWidth() + " cm"
+    ));
+end

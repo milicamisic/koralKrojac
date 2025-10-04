@@ -24,15 +24,19 @@ public class DroolsConfig {
 
         // Obična forward pravila
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/forward.drl"));
+        kfs.write(ResourceFactory.newClassPathResource("rules/forward/fabric-rules.drl"));
+//        kfs.write(ResourceFactory.newClassPathResource("rules/forward/tablecloth-rules.drl"));
 
         // Šabloni za haljine
-        compileSpreadsheet(kfs, "rules/forward/dress_base_length.drt", "rules/forward/dress_base_length.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_bust_correction.drt", "rules/forward/dress_bust_correction.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_hips_correction.drt", "rules/forward/dress_hips_correction.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_shoulders.drt", "rules/forward/dress_shoulders.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_sleeves.drt", "rules/forward/dress_sleeves.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_height.drt", "rules/forward/dress_height.xls");
-        compileSpreadsheet(kfs, "rules/forward/dress_wrap.drt", "rules/forward/dress_wrap.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_base_length.drt", "rules/forward/dress/dress_base_length.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_bust_correction.drt", "rules/forward/dress/dress_bust_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_hips_correction.drt", "rules/forward/dress/dress_hips_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_shoulders.drt", "rules/forward/dress/dress_shoulders.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_sleeves.drt", "rules/forward/dress/dress_sleeves.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_height.drt", "rules/forward/dress/dress_height.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_wrap.drt", "rules/forward/dress/dress_wrap.xls");
+        // pravila za sirinu materijala
+//        compileSpreadsheet(kfs, "rules/forward/fabric_width_factor.drt", "rules/forward/fabric_width_factor.xls");
 
         // Build
         KieBuilder kieBuilder = ks.newKieBuilder(kfs).buildAll();
