@@ -1,0 +1,21 @@
+<h2>Available Fabrics</h2>
+
+@if (loading) {
+  <div>Loading fabrics...</div>
+}
+@else {
+  <div class="grid">
+    <div class="fabric-card" *ngFor="let fabric of fabrics">
+      <h3>{{ fabric.name }}</h3>
+      <p><strong>Stretch:</strong> {{ fabric.stretchPercentage }}%</p>
+      <p><strong>Shrinkage:</strong> {{ fabric.shrinkagePercentage }}%</p>
+      <p><strong>Width:</strong> {{ fabric.width }} cm</p>
+      <p><strong>Nap:</strong> {{ fabric.hasNap ? 'Yes' : 'No' }}</p>
+      <p><strong>Drape:</strong> {{ fabric.drape }}</p>
+      <p><strong>GSM:</strong> {{ fabric.gsm }}</p>
+    </div>
+  </div>
+}
+
+
+

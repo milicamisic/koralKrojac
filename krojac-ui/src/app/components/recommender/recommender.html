@@ -1,0 +1,78 @@
+<div class="recommender-container">
+  <h2>Fabric Recommendation</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Item Type</mat-label>
+      <mat-select formControlName="itemType">
+        @for (type of itemTypes; track $index) {
+            <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Chest Circumference (cm)</mat-label>
+      <input matInput type="number" formControlName="chestCircumference">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Torso Length (cm)</mat-label>
+      <input matInput type="number" formControlName="torsoLength">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Sleeve Length (cm)</mat-label>
+      <input matInput type="number" formControlName="sleeveLength">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Shoulder Width (cm)</mat-label>
+      <input matInput type="number" formControlName="shoulderWidth">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Fit</mat-label>
+      <mat-select formControlName="fit">
+        <mat-option value="STANDARD">Standard</mat-option>
+        <mat-option value="SLIM">Slim</mat-option>
+        <mat-option value="OVERSIZED">Oversized</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Get Recommendation</button>
+  </form>
+
+  @if (result) {
+    <div>
+      <h3>Fabric Recommendation</h3>
+
+      <p><b>Base Length:</b> {{ result.baseLength }} m</p>
+      <p><b>Total Length:</b> {{ result.totalLength }} m</p>
+
+      <h4>Suitable Fabrics</h4>
+      <ul>
+        @for (fabric of result.recommendedFabrics; track $index) {
+          <li>{{ fabric }}</li>
+        }
+      </ul>
+
+      @if (result.warnings.length) {
+        <h4>Warnings</h4>
+        <ul>
+          @for (warn of result.warnings; track $index) {
+            <li>{{ warn }}</li>
+          }
+        </ul>
+      }
+
+      <h4>Messages</h4>
+      <ul>
+        @for (msg of result.messages; track $index) {
+          <li>{{ msg }}</li>
+        }
+      </ul>
+    </div>
+  }
+  
+</div>

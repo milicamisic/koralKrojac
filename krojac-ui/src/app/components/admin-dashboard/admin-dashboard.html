@@ -1,0 +1,11 @@
+<h2>📢 Alertovi</h2>
+@if (alerts.length === 0) {
+    <div >Nema aktivnih alertova.</div>
+}
+<ul>
+    @for (a of alerts; track $index) {
+        <li>
+             <b>{{ a.fabric }}</b> → {{ a.type }}, {{ a.message }}
+        </li>
+    }
+</ul>
