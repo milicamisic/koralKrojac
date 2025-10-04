@@ -1,7 +1,82 @@
 <div class="recommender-container">
   <h2>Fabric Recommendation</h2>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="category-selection">
+  <h3>Select Category</h3>
+  <div class="category-buttons">
+    <button mat-raised-button
+            color="{{ category === 'Garment' ? 'primary' : '' }}"
+            (click)="selectCategory('Garment')">
+      Garment
+    </button>
+
+    <button mat-raised-button
+            color="{{ category === 'Home Decor' ? 'primary' : '' }}"
+            (click)="selectCategory('Home Decor')">
+      Home Decor
+    </button>
+  </div>
+</div>
+
+@if (category) {
+  <div class="item-selection">
+    <h3>Select Item</h3>
+    <div class="item-buttons">
+      @if (category === 'Garment') {
+        @for (item of clothingItems; track $index) {
+          <button mat-stroked-button
+                  color="{{ selectedItem === item ? 'accent' : '' }}"
+                  (click)="selectItem(item)">
+            {{ item }}
+          </button>
+        }
+      } @else {
+        @for (item of decorationItems; track $index) {
+          <button mat-stroked-button
+                  color="{{ selectedItem === item ? 'accent' : '' }}"
+                  (click)="selectItem(item)">
+            {{ item }}
+          </button>
+        }
+      }
+    </div>
+  </div>
+}
+
+
+
+  
+@if (selectedItem) {
+  @if (selectedItem === 'Dress') {
+    <app-dress-form (result)="result = $event"></app-dress-form>
+  }
+  @if (selectedItem === 'Shirt') {
+    <app-shirt-form (result)="result = $event"></app-shirt-form>
+  }
+  @if (selectedItem === 'Pants') {
+    <app-pants-form (result)="result = $event"></app-pants-form>
+  }
+  @if (selectedItem === 'Skirt') {
+    <app-skirt-form (result)="result = $event"></app-skirt-form>
+  }
+  @if (selectedItem === 'Sweater') {
+    <app-sweater-form (result)="result = $event"></app-sweater-form>
+  }
+  @if (selectedItem === 'Curtain') {
+  <app-curtain-form (result)="result = $event"></app-curtain-form>
+}
+@if (selectedItem === 'Tablecloth') {
+  <app-tablecloth-form (result)="result = $event"></app-tablecloth-form>
+}
+@if (selectedItem === 'Bedsheet') {
+  <app-bedsheet-form (result)="result = $event"></app-bedsheet-form>
+}
+@if (selectedItem === 'Pillowcase') {
+  <app-pillowcase-form (result)="result = $event"></app-pillowcase-form>
+}
+
+
+  <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Item Type</mat-label>
       <mat-select formControlName="itemType">
@@ -41,7 +116,8 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">Get Recommendation</button>
-  </form>
+  </form> -->
+
 
   @if (result) {
     <div>
@@ -74,5 +150,5 @@
       </ul>
     </div>
   }
-  
+}
 </div>

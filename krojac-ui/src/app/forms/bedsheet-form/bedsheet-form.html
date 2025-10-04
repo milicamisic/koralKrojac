@@ -1,0 +1,37 @@
+<h3>Bedsheet Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sheet Type</mat-label>
+    <mat-select formControlName="type">
+      @for (t of sheetTypes; track $index) {
+        <mat-option [value]="t">{{ t }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Length (cm)</mat-label>
+    <input matInput type="number" formControlName="length">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Width (cm)</mat-label>
+    <input matInput type="number" formControlName="width">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Mattress Height (cm)</mat-label>
+    <input matInput type="number" formControlName="height">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Overhang (cm)</mat-label>
+    <input matInput type="number" formControlName="overhang">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

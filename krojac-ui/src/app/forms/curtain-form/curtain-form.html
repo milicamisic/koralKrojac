@@ -1,0 +1,35 @@
+<h3>Curtain Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Height (cm)</mat-label>
+    <input matInput type="number" formControlName="height">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Width (cm)</mat-label>
+    <input matInput type="number" formControlName="width">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Pleat Factor</mat-label>
+    <mat-select formControlName="pleatFactor">
+      @for (pf of pleatFactors; track $index) {
+        <mat-option [value]="pf">{{ pf }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Hanging Type</mat-label>
+    <mat-select formControlName="hangingType">
+      @for (h of hangingTypes; track $index) {
+        <mat-option [value]="h">{{ h }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

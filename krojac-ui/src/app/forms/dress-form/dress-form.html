@@ -1,0 +1,53 @@
+<h3>Dress Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Dress Type</mat-label>
+    <mat-select formControlName="type">
+      @for (t of dressTypes; track $index) {
+        <mat-option [value]="t">{{ t }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Bust (cm)</mat-label>
+    <input matInput type="number" formControlName="bust" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Hips (cm)</mat-label>
+    <input matInput type="number" formControlName="hips" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Shoulder Width (cm)</mat-label>
+    <input matInput type="number" formControlName="shoulder" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Height (cm)</mat-label>
+    <input matInput type="number" formControlName="height" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Dress Length (cm)</mat-label>
+    <input matInput type="number" formControlName="length" required>
+  </mat-form-field>
+
+  <mat-slide-toggle formControlName="wrap">Wrap Dress</mat-slide-toggle>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sleeve Type</mat-label>
+    <mat-select formControlName="sleeveType">
+      @for (s of sleeveTypes; track $index) {
+        <mat-option [value]="s">{{ s }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

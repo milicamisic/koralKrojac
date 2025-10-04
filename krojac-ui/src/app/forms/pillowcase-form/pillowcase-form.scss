@@ -1,0 +1,15 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+button {
+  align-self: flex-start;
+  margin-top: 10px;
+}

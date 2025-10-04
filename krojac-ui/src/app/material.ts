@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const MATERIAL_IMPORTS = [
   MatToolbarModule,
@@ -16,5 +17,6 @@ export const MATERIAL_IMPORTS = [
   MatInputModule,
   MatSelectModule,
   MatGridListModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSlideToggleModule,
 ];

@@ -1,0 +1,32 @@
+<h3>Tablecloth Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Table Shape</mat-label>
+    <mat-select formControlName="shape">
+      @for (shape of shapes; track $index) {
+        <mat-option [value]="shape">{{ shape }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Table Length (cm)</mat-label>
+    <input matInput type="number" formControlName="length">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Table Width (cm)</mat-label>
+    <input matInput type="number" formControlName="width">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Overhang (cm)</mat-label>
+    <input matInput type="number" formControlName="overhang">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

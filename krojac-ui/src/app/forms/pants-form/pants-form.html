@@ -1,0 +1,42 @@
+<h3>Pants Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Waist Circumference (cm)</mat-label>
+    <input matInput type="number" formControlName="waist">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Hip Circumference (cm)</mat-label>
+    <input matInput type="number" formControlName="hips">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Inseam Length (cm)</mat-label>
+    <input matInput type="number" formControlName="inseam">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Outseam Length (cm)</mat-label>
+    <input matInput type="number" formControlName="outseam">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Fit</mat-label>
+    <mat-select formControlName="fit">
+      @for (fit of fitOptions; track $index) {
+        <mat-option [value]="fit">{{ fit }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Stretch (%)</mat-label>
+    <input matInput type="number" formControlName="stretchPercent">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

@@ -1,0 +1,14 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-slide-toggle {
+  margin-top: 8px;
+}

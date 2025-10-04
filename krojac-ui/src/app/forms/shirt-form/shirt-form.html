@@ -1,0 +1,46 @@
+<h3>Shirt Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Chest Circumference (cm)</mat-label>
+    <input matInput type="number" formControlName="chestCircumference">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Torso Length (cm)</mat-label>
+    <input matInput type="number" formControlName="torsoLength">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Shoulder Width (cm)</mat-label>
+    <input matInput type="number" formControlName="shoulderWidth">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sleeve Type</mat-label>
+    <mat-select formControlName="sleeveType">
+      @for (type of sleeveTypes; track $index) {
+        <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sleeve Length (cm)</mat-label>
+    <input matInput type="number" formControlName="sleeveLength">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Fit</mat-label>
+    <mat-select formControlName="fit">
+      @for (fit of fitOptions; track $index) {
+        <mat-option [value]="fit">{{ fit }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

@@ -5,6 +5,16 @@ import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
 import { Evaluation } from '../../model/evaluation';
 import { ShirtRequest } from '../../model/shirtRequest';
+import { DressForm } from "../../forms/dress-form/dress-form";
+import { ShirtForm } from "../../forms/shirt-form/shirt-form";
+import { PantsForm } from "../../forms/pants-form/pants-form";
+import { SkirtForm } from "../../forms/skirt-form/skirt-form";
+import { SweaterForm } from "../../forms/sweater-form/sweater-form";
+import { CurtainForm } from "../../forms/curtain-form/curtain-form";
+import { TableclothForm } from "../../forms/tablecloth-form/tablecloth-form";
+import { BedsheetForm } from "../../forms/bedsheet-form/bedsheet-form";
+import { PillowcaseForm } from "../../forms/pillowcase-form/pillowcase-form";
+
 
 @Component({
   selector: 'app-recommender',
@@ -12,8 +22,17 @@ import { ShirtRequest } from '../../model/shirtRequest';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ...MATERIAL_IMPORTS
-  ],
+    ...MATERIAL_IMPORTS,
+    DressForm,
+    ShirtForm,
+    PantsForm,
+    SkirtForm,
+    SweaterForm,
+    CurtainForm,
+    TableclothForm,
+    BedsheetForm,
+    PillowcaseForm
+],
   templateUrl: './recommender.html',
   styleUrl: './recommender.scss'
 })
@@ -31,7 +50,7 @@ export class Recommender {
 
     categories = ['Clothing', 'Decoration'];
 
-    clothingItems = ['T-shirt', 'Shirt', 'Dress', 'Skirt', 'Pants', 'Sweater'];
+    clothingItems = ['Shirt', 'Dress', 'Skirt', 'Pants', 'Sweater'];
     decorationItems = ['Tablecloth', 'Bedsheet', 'Pillowcase', 'Curtain'];
 
     itemTypes = ['Shirt', 'Pants', 'Dress'];
@@ -61,7 +80,7 @@ export class Recommender {
       const values = this.form.value;
 
       const shirtRequest: ShirtRequest = {
-        chestCircumference: values.chestCircumference,
+        bust: values.chestCircumference,
         torsoLength: values.torsoLength,
         hasSleeves: values.sleeveLength > 0,
         sleeveLength: values.sleeveLength,
@@ -78,12 +97,14 @@ export class Recommender {
     }
 
     selectCategory(cat: string) {
-        this.category = cat;
-        this.selectedItem = null; // reset when switching category
+      this.category = cat;
+      this.selectedItem = null; // reset when switching category
+      this.form.reset(); // očisti prethodne vrednosti forme
     }
 
     selectItem(item: string) {
-        this.selectedItem = item;
+      this.selectedItem = item;
+      this.form.reset();
     }
 
 }

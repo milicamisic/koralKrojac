@@ -17,4 +17,20 @@
     background: #e0f7fa;
     border-radius: 4px;
   }
+
+  .category-selection, .item-selection {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .category-buttons, .item-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  button {
+    min-width: 120px;
+  }
 }

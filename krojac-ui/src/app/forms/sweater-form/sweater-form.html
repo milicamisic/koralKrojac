@@ -1,0 +1,46 @@
+<h3>Sweater Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Bust (cm)</mat-label>
+    <input matInput type="number" formControlName="bust">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Torso Length (cm)</mat-label>
+    <input matInput type="number" formControlName="torsoLength">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sleeve Length (cm)</mat-label>
+    <input matInput type="number" formControlName="sleeveLength">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Shoulder Width (cm)</mat-label>
+    <input matInput type="number" formControlName="shoulderWidth">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Fit</mat-label>
+    <mat-select formControlName="fit">
+      @for (f of fitOptions; track $index) {
+        <mat-option [value]="f">{{ f }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Yarn Thickness</mat-label>
+    <mat-select formControlName="yarnThickness">
+      @for (y of yarnOptions; track $index) {
+        <mat-option [value]="y">{{ y }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

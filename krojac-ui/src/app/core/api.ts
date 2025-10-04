@@ -5,6 +5,14 @@ import { Fabric } from '../model/fabric';
 import { ShirtRequest } from '../model/shirtRequest';
 import { Evaluation } from '../model/evaluation';
 import { StockAlert } from './alert';
+import { DressRequest } from '../model/dressRequest';
+import { PantsRequest } from '../model/pantsRequest';
+import { SkirtRequest } from '../model/skirtRequest';
+import { SweaterRequest } from '../model/sweaterRequest';
+import { TableclothRequest } from '../model/tableclothRequest';
+import { BedsheetRequest } from '../model/bedsheetRequest';
+import { PillowcaseRequest } from '../model/pillowcaseRequest';
+import { CurtainRequest } from '../model/curtainRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +31,39 @@ export class Api {
   }
 
   evaluateShirt(shirt: ShirtRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/tshirt`, { shirtRequest: shirt });
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/shirt`, { shirtRequest: shirt });
+  }
+
+  evaluateDress(dress: DressRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/dress`, { dressRequest: dress });
+  }
+
+  evaluatePants(pants: PantsRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/pants`, { pantsRequest: pants });
+  }
+
+  evaluateSkirt(skirt: SkirtRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/skirt`, { skirtRequest: skirt });
+  }
+
+  evaluateSweater(sweater: SweaterRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/sweater`, { sweaterRequest: sweater });
+  }
+
+  evaluateTablecloth(tablecloth: TableclothRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/tablecloth`, { tableclothRequest: tablecloth });
+  }
+
+  evaluateBedsheet(bedsheet: BedsheetRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/bedsheet`, { bedsheetRequest: bedsheet });
+  }
+
+  evaluatePillowcase(pillowcase: PillowcaseRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/pillowcase`, { pillowcaseRequest: pillowcase });
+  }
+
+  evaluateCurtain(curtain: CurtainRequest): Observable<Evaluation> {
+    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/curtain`, { curtainRequest: curtain });
   }
 
   getAlertHistory(): Observable<StockAlert[]> {
