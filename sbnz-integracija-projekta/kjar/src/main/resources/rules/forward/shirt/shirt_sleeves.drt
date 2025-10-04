@@ -1,0 +1,17 @@
+template header
+sleeveMin
+sleeveMax
+correction
+
+package templates
+import com.ftn.sbnz.model.models.Shirt
+import com.ftn.sbnz.model.models.Recommendation
+
+rule "Shirt - sleeve correction @sleeveMin-@sleeveMax"
+when
+    $s : Shirt( sleeveLength >= @sleeveMin, sleeveLength < @sleeveMax )
+then
+    Recommendation rec = new Recommendation($s.getFabric(), @correction,
+        "Sleeve correction (" + $s.getSleeveLength() + " cm)");
+    insert(rec);
+end

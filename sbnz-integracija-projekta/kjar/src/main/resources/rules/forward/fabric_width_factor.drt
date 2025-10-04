@@ -1,0 +1,25 @@
+template header
+widthMin
+widthMax
+factor
+note
+
+package forward.material
+
+import com.ftn.sbnz.model.models.FabricRecommendation
+
+template "Fabric width correction"
+rule "Fabric width @{widthMin}-@{widthMax}"
+when
+    $r : FabricRecommendation(
+        $len : requiredLength,
+        fabric.width >= @{widthMin},
+        fabric.width <= @{widthMax}
+    )
+then
+    modify($r) {
+        setRequiredLength($len * @{factor}),
+        setNote($r.getNote() + " | @{note}")
+    }
+end
+end template

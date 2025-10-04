@@ -1,0 +1,14 @@
+template header
+chestMin
+chestMax
+baseLength
+
+template "Blouse Base Length"
+rule "Blouse Base Length @{row.rowNumber}"
+when
+    $blouse : Blouse( chest >= @{chestMin}, chest < @{chestMax} )
+then
+    modify($blouse) { setBaseLength(@{baseLength}); }
+    System.out.println("Blouse base length set to @{baseLength} for chest range @{chestMin}-@{chestMax}");
+end
+end template

@@ -4,6 +4,8 @@ public class Pillowcase {
     private int length;
     private int width;
 
+    public Pillowcase() {}
+
     public Pillowcase(int length, int width) {
         this.length = length;
         this.width = width;

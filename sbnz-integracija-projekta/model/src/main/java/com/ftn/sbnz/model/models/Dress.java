@@ -7,7 +7,7 @@ public class Dress extends Garment {
     private int length;
     private String sleeveType;
     private int shoulder;
-    private String type; // A-line, Circle, Bodycon, Shift
+    private String type;
     private int height;
     private boolean wrap;
 

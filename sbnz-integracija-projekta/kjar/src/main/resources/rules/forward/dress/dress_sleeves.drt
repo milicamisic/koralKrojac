@@ -1,0 +1,24 @@
+template header
+sleeveType
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress sleeves correction"
+rule "Sleeves @{sleeveType}"
+    salience 75
+when
+    $df : DressFabric(dress.sleeveType == "@{sleeveType}")
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina rukavi korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

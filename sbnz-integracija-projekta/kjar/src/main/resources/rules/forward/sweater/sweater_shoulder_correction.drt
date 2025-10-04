@@ -1,0 +1,27 @@
+template header
+minShoulder
+maxShoulder
+correction
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater shoulder correction"
+rule "Sweater shoulder correction @{minShoulder}-@{maxShoulder}"
+when
+    $sf : SweaterFabric(
+        shoulder >= @{minShoulder},
+        shoulder <= @{maxShoulder},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{correction},
+        "Korekcija po ramenima " + $sf.getShoulder()
+    );
+    insert(rec);
+end
+end template

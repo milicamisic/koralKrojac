@@ -1,0 +1,25 @@
+template header
+minBust
+maxBust
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress bust correction"
+rule "Bust correction @{minBust}-@{maxBust}"
+    salience 95
+when
+    $df : DressFabric(dress.bust >= @{minBust}, dress.bust <= @{maxBust})
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina bust korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

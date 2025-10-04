@@ -1,0 +1,27 @@
+template header
+minChest
+maxChest
+baseYarn
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater base yarn"
+rule "Sweater base yarn @{minChest}-@{maxChest}"
+when
+    $sf : SweaterFabric(
+        chest >= @{minChest},
+        chest <= @{maxChest},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{baseYarn},
+        "Bazna količina pređe za džemper obima grudi " + $sf.getChest()
+    );
+    insert(rec);
+end
+end template

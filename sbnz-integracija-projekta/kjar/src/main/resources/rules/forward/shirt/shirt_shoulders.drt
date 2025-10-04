@@ -1,0 +1,17 @@
+template header
+shoulderMin
+shoulderMax
+correction
+
+package templates
+import com.ftn.sbnz.model.models.Shirt
+import com.ftn.sbnz.model.models.Recommendation
+
+rule "Shirt - shoulder correction @shoulderMin-@shoulderMax"
+when
+    $s : Shirt( shoulders >= @shoulderMin, shoulders < @shoulderMax )
+then
+    Recommendation rec = new Recommendation($s.getFabric(), @correction,
+        "Shoulder correction (" + $s.getShoulders() + " cm)");
+    insert(rec);
+end

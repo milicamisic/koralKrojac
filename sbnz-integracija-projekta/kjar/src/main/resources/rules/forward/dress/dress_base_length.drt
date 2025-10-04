@@ -1,0 +1,27 @@
+template header
+dressType
+minLength
+maxLength
+baseLength
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress base length"
+rule "Dress base @{dressType} length @{minLength}-@{maxLength}"
+    salience 100
+when
+    $df : DressFabric(
+        dressType == "@{dressType}",
+        dressLength >= @{minLength},
+        dressLength <= @{maxLength},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation($df.getFabric(), @{baseLength},
+        "Bazna metraža za haljinu tipa @{dressType} dužine " + $df.getDress().getLength());
+    insert(rec);
+end
+end template

@@ -1,0 +1,65 @@
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.BedSheetFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.util.BedSheetUtils
+
+// Čaršaf bez lastiša
+rule "Flat sheet (bez lastiša)"
+when
+    $bsf : BedSheetFabric(
+        getType() == "BEZ_LASTISA",
+        getFabricCategory() == "BEDDING"
+    )
+then
+    double meters = BedSheetUtils.flatSheetMeters(
+        $bsf.getLength(),
+        $bsf.getWidth(),
+        $bsf.getOverhang(),
+        $bsf.getFabricWidth()
+    );
+    insert(new Recommendation($bsf.getFabric(), meters,
+        "Čaršaf bez lastiša – dužina " + $bsf.getLength() +
+        " cm, širina " + $bsf.getWidth() +
+        " cm, previs " + $bsf.getOverhang() + " cm"));
+end
+
+// Čaršaf sa lastišem
+rule "Fitted sheet (sa lastišem)"
+when
+    $bsf : BedSheetFabric(
+        getType() == "SA_LASTISEM",
+        getFabricCategory() == "BEDDING"
+    )
+then
+    double meters = BedSheetUtils.fittedSheetMeters(
+        $bsf.getLength(),
+        $bsf.getWidth(),
+        $bsf.getHeight(),
+        $bsf.getFabricWidth()
+    );
+    insert(new Recommendation($bsf.getFabric(), meters,
+        "Čaršaf sa lastišem – dužina " + $bsf.getLength() +
+        " cm, širina " + $bsf.getWidth() +
+        " cm, visina dušeka " + $bsf.getHeight() + " cm"));
+end
+
+// Navlaka za jorgan
+rule "Duvet cover (navlaka za jorgan)"
+when
+    $bsf : BedSheetFabric(
+        getType() == "JORGANSKA_NAVLAKA",
+        getFabricCategory() == "BEDDING"
+    )
+then
+    double meters = BedSheetUtils.duvetCoverMeters(
+        $bsf.getLength(),
+        $bsf.getWidth(),
+        $bsf.getFabricWidth()
+    );
+    insert(new Recommendation($bsf.getFabric(), meters,
+        "Navlaka za jorgan – dužina " + $bsf.getLength() +
+        " cm, širina " + $bsf.getWidth() + " cm"));
+end

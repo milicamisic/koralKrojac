@@ -1,0 +1,27 @@
+template header
+minTorso
+maxTorso
+correction
+
+package forward
+
+import com.ftn.sbnz.model.models.SweaterFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Sweater torso correction"
+rule "Sweater torso correction @{minTorso}-@{maxTorso}"
+when
+    $sf : SweaterFabric(
+        torsoLength >= @{minTorso},
+        torsoLength <= @{maxTorso},
+        fabric.category == "CLOTHING"
+    )
+then
+    Recommendation rec = new Recommendation(
+        $sf.getFabric(),
+        @{correction},
+        "Korekcija po dužini torza " + $sf.getTorsoLength()
+    );
+    insert(rec);
+end
+end template

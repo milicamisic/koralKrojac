@@ -4,10 +4,10 @@ public class Tablecloth {
     private int length;
     private int width;
     private String shape; // rectangle, square, round
-    private int diameter; // za okrugli sto
-    private int overhang; // pad sa strane
+    private double diameter; // za okrugli sto
+    private double overhang; // pad sa strane
 
-    public Tablecloth(int length, int width, String shape, int diameter, int overhang) {
+    public Tablecloth(int length, int width, String shape, double diameter, double overhang) {
         this.length = length;
         this.width = width;
         this.shape = shape;
@@ -39,19 +39,30 @@ public class Tablecloth {
         this.shape = shape;
     }
 
-    public int getDiameter() {
+    public double getDiameter() {
         return diameter;
     }
 
-    public void setDiameter(int diameter) {
+    public void setDiameter(double diameter) {
         this.diameter = diameter;
     }
 
-    public int getOverhang() {
+    public double getOverhang() {
         return overhang;
     }
 
-    public void setOverhang(int overhang) {
+    public void setOverhang(double overhang) {
         this.overhang = overhang;
+    }
+
+    @Override
+    public String toString() {
+        return "Tablecloth{" +
+                "length=" + length +
+                ", width=" + width +
+                ", shape='" + shape + '\'' +
+                ", diameter=" + diameter +
+                ", overhang=" + overhang +
+                '}';
     }
 }

@@ -1,0 +1,20 @@
+template header
+waistMin
+waistMax
+correction
+note
+
+package templates.pants
+
+import com.ftn.sbnz.model.models.Pants
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Pants waist correction"
+rule "Pants waist @{waistMin}-@{waistMax}"
+when
+    $p : Pants( waist >= @{waistMin}, waist <= @{waistMax}, fabric.category == "CLOTHING" )
+then
+    Recommendation rec = new Recommendation($p.getFabric(), @{correction}, "@{note}");
+    insert(rec);
+end
+end template

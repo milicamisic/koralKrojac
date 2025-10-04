@@ -1,0 +1,33 @@
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.CurtainFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.util.CurtainUtils
+
+rule "Curtain fabric recommendation"
+when
+    $cf : CurtainFabric(
+        fabric.category == "HOME_DECOR"
+    )
+then
+    double meters = CurtainUtils.calculateCurtainLength(
+        $cf.getCurtain().getHeight(),
+        $cf.getCurtain().getWindowWidth(),
+        $cf.getCurtain().getPleatingFactor(),
+        $cf.getCurtain().getHangingType(),
+        $cf.getCurtain().getMarginTop(),
+        $cf.getCurtain().getMarginBottom(),
+        $cf.getFabric().getWidth()
+    );
+
+    insert(new Recommendation(
+        $cf.getFabric(),
+        meters,
+        "Zavesa (" + $cf.curtain.hangingType + ") – visina " +
+        $cf.curtain.height + " cm, širina prozora " +
+        $cf.curtain.windowWidth + " cm, faktor nabrane " +
+        $cf.curtain.pleatingFactor + ", preporučena metraža: " + meters + " m"
+    ));
+end

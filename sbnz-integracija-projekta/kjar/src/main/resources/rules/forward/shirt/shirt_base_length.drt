@@ -1,0 +1,17 @@
+template header
+chestMin
+chestMax
+baseLength
+
+package templates
+import com.ftn.sbnz.model.models.Shirt
+import com.ftn.sbnz.model.models.Recommendation
+
+rule "Shirt - base length @chestMin-@chestMax"
+when
+    $s : Shirt( chest >= @chestMin, chest < @chestMax )
+then
+    Recommendation rec = new Recommendation($s.getFabric(), @baseLength,
+        "Base length for shirt (chest=" + $s.getChest() + ")");
+    insert(rec);
+end

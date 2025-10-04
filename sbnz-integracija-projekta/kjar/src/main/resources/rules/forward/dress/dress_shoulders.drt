@@ -1,0 +1,28 @@
+template header
+minShoulder
+maxShoulder
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress shoulder correction"
+rule "Shoulder @{minShoulder}-@{maxShoulder}"
+    salience 80
+when
+    $df : DressFabric(
+        dress.shoulder >= @{minShoulder},
+        dress.shoulder <= @{maxShoulder}
+    )
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina ramena korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

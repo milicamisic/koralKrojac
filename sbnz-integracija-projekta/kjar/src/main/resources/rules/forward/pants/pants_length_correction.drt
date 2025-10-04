@@ -1,0 +1,20 @@
+template header
+lengthMin
+lengthMax
+correction
+note
+
+package templates.pants
+
+import com.ftn.sbnz.model.models.Pants
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Pants length correction"
+rule "Pants length @{lengthMin}-@{lengthMax}"
+when
+    $p : Pants( length >= @{lengthMin}, length <= @{lengthMax}, fabric.category == "CLOTHING" )
+then
+    Recommendation rec = new Recommendation($p.getFabric(), @{correction}, "@{note}");
+    insert(rec);
+end
+end template
