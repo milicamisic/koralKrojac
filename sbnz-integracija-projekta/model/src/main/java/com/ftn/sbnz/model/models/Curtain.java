@@ -1,16 +1,16 @@
 package com.ftn.sbnz.model.models;
 
 public class Curtain {
-    private double height;
-    private double width;
-    private double pleatFactor; // 1.5, 2, ...
+    private int height;
+    private int width;
+    private int pleatFactor; // 1.5, 2, ...
     private String hangingType; // kukice, kanal, karike
-    private double marginTop;
-    private double marginBottom;
+    private int marginTop;
+    private int marginBottom;
 
     public Curtain() {}
 
-    public Curtain(double height, double width, double pleatFactor, String hangingType, double marginTop, double marginBottom) {
+    public Curtain(int height, int width, int pleatFactor, String hangingType, int marginTop, int marginBottom) {
         this.height = height;
         this.width = width;
         this.pleatFactor = pleatFactor;
@@ -19,27 +19,27 @@ public class Curtain {
         this.marginBottom = marginBottom;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public double getPleatFactor() {
+    public int getPleatFactor() {
         return pleatFactor;
     }
 
-    public void setPleatFactor(double pleatFactor) {
+    public void setPleatFactor(int pleatFactor) {
         this.pleatFactor = pleatFactor;
     }
 
@@ -51,19 +51,31 @@ public class Curtain {
         this.hangingType = hangingType;
     }
 
-    public double getMarginTop() {
+    public int getMarginTop() {
         return marginTop;
     }
 
-    public void setMarginTop(double marginTop) {
+    public void setMarginTop(int marginTop) {
         this.marginTop = marginTop;
     }
 
-    public double getMarginBottom() {
+    public int getMarginBottom() {
         return marginBottom;
     }
 
-    public void setMarginBottom(double marginBottom) {
+    public void setMarginBottom(int marginBottom) {
         this.marginBottom = marginBottom;
+    }
+
+    @Override
+    public String toString() {
+        return "Curtain{" +
+                "height=" + height +
+                ", width=" + width +
+                ", pleatFactor=" + pleatFactor +
+                ", hangingType='" + hangingType + '\'' +
+                ", marginTop=" + marginTop +
+                ", marginBottom=" + marginBottom +
+                '}';
     }
 }

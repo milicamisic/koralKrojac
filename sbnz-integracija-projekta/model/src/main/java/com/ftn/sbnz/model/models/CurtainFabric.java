@@ -35,7 +35,7 @@ public class CurtainFabric implements Serializable {
     public String toString() {
         return "CurtainFabric{" +
                 "curtain=" + (curtain != null ? curtain.toString() : "null") +
-                ", fabric=" + (fabric != null ? fabric.getName() : "null") +
+                ", fabric=" + (fabric != null ? fabric.toString() : "null") +
                 '}';
     }
 }

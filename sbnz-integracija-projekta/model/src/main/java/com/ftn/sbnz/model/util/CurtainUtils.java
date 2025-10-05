@@ -10,17 +10,14 @@ public class CurtainUtils {
         int topExtra = 0;
         if (hangingType != null) {
             switch (hangingType.toLowerCase()) {
-                case "kanal":
+                case "channel":
                     topExtra = 10; // +10 cm
                     break;
-                case "prstenovi":
-                case "metalni prstenovi":
+                case "rings":
                     topExtra = 20; // +20 cm
                     break;
-                case "kukice":
-                case "karike":
+                case "hooks":
                 default:
-                    topExtra = 0; // bez korekcije
                     break;
             }
         }

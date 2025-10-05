@@ -24,7 +24,7 @@ export class CurtainForm {
       height: [null, [Validators.required, Validators.min(100)]],
       width: [null, [Validators.required, Validators.min(50)]],
       marginTop: [null, [Validators.required, Validators.min(0)]],
-      marginBottom: [null, [Validators.required], Validators.min(0)],
+      marginBottom: [null, [Validators.required, Validators.min(0)]],
       pleatFactor: [2, Validators.required],
       hangingType: ['HOOKS', Validators.required]
     });

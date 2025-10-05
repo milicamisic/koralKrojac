@@ -16,7 +16,7 @@ export class BedsheetForm {
   @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
-  sheetTypes = ['FITTED', 'FLAT'];
+  sheetTypes = ['FITTED', 'FLAT', 'DUVET_COVER'];
 
   constructor(private fb: FormBuilder, private api: Api) {
     this.form = this.fb.group({

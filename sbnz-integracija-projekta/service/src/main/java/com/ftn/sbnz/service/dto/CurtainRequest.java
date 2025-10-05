@@ -1,34 +1,34 @@
 package com.ftn.sbnz.service.dto;
 
 public class CurtainRequest {
-    private double height;
-    private double width;
-    private double pleatFactor;
+    private int height;
+    private int width;
+    private int pleatFactor;
     private String hangingType; // HOOKS, RINGS, CHANNEL
-    private double marginTop;
-    private double marginBottom;
+    private int marginTop;
+    private int marginBottom;
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public double getPleatFactor() {
+    public int getPleatFactor() {
         return pleatFactor;
     }
 
-    public void setPleatFactor(double pleatFactor) {
+    public void setPleatFactor(int pleatFactor) {
         this.pleatFactor = pleatFactor;
     }
 
@@ -40,19 +40,19 @@ public class CurtainRequest {
         this.hangingType = hangingType;
     }
 
-    public double getMarginTop() {
+    public int getMarginTop() {
         return marginTop;
     }
 
-    public void setMarginTop(double marginTop) {
+    public void setMarginTop(int marginTop) {
         this.marginTop = marginTop;
     }
 
-    public double getMarginBottom() {
+    public int getMarginBottom() {
         return marginBottom;
     }
 
-    public void setMarginBottom(double marginBottom) {
+    public void setMarginBottom(int marginBottom) {
         this.marginBottom = marginBottom;
     }
 }

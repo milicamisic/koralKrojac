@@ -3,13 +3,13 @@ package forward
 dialect "java"
 
 import com.ftn.sbnz.model.models.PillowcaseFabric
-import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
 import com.ftn.sbnz.model.util.PillowcaseUtils
 
 rule "Pillowcase calculation"
 when
     $pf : PillowcaseFabric(
-        getFabricCategory() == "BEDDING"
+        getFabricCategory() == "HOME_DECOR"
     )
 then
     double meters = PillowcaseUtils.pillowcaseMeters(
@@ -18,7 +18,7 @@ then
         $pf.getFabricWidth()
     );
 
-    insert(new Recommendation(
+    insert(new FabricRecommendation(
         $pf.getFabric(),
         meters,
         "Jastučnica – dužina " + $pf.getLength() +

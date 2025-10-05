@@ -197,7 +197,11 @@ public class RecommendationService {
         List<RecommendationDTO> recommendations = new ArrayList<>();
 
         KieSession kieSession = forwardKsession.getKieBase().newKieSession();
-        fabrics.forEach(f -> kieSession.insert(new CurtainFabric(curtain, f)));
+        for (Fabric f : fabrics) {
+            CurtainFabric cf = new CurtainFabric(curtain, f);
+            System.out.println("👉 Inserting fabric: " + cf);
+            kieSession.insert(cf);
+        }
 
         int fired = kieSession.fireAllRules();
         System.out.println("Pokrenuto pravila za curtain: " + fired);

@@ -3,14 +3,12 @@ package forward
 dialect "java"
 
 import com.ftn.sbnz.model.models.CurtainFabric
-import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
 import com.ftn.sbnz.model.util.CurtainUtils
 
 rule "Curtain fabric recommendation"
 when
-    $cf : CurtainFabric(
-        fabric.category == "HOME_DECOR"
-    )
+    $cf : CurtainFabric($c: curtain, fabric.category == "HOME_DECOR")
 then
     double meters = CurtainUtils.calculateCurtainLength(
         $cf.getCurtain().getHeight(),
@@ -22,12 +20,14 @@ then
         $cf.getFabric().getWidth()
     );
 
-    insert(new Recommendation(
+    insert(new FabricRecommendation(
         $cf.getFabric(),
         meters,
-        "Zavesa (" + $cf.curtain.hangingType + ") – visina " +
-        $cf.curtain.height + " cm, širina prozora " +
-        $cf.curtain.windowWidth + " cm, faktor nabrane " +
-        $cf.curtain.pleatFactor + ", preporučena metraža: " + meters + " m"
+        "Zavesa (" + $c.getHangingType() + ") – visina " +
+        $c.getHeight() + " cm, širina prozora " +
+        $c.getWidth() + " cm, faktor nabrane " +
+        $c.getPleatFactor() + ", preporučena metraža: " + meters + " m"
     ));
+
+    System.out.println("🏡 Recommended fabric: " + $cf.getFabric().getName());
 end
