@@ -1,22 +1,26 @@
-package com.ftn.sbnz.model.models;
+package com.ftn.sbnz.service.dto;
 
-public class Blouse extends Garment {
+public class BlouseRequest {
     private int bust;
     private int waist;
     private int torsoLength;
     private int shoulder;
+    private int neck;
     private String collarType; // klasična, mandarinska, oversized, bez
     private String sleeveType;
+    private String fit;
 
-    public Blouse() {}
+    public BlouseRequest() {}
 
-    public Blouse(int bust, int waist, int torsoLength, int shoulder, String collarType, String sleeveType) {
+    public BlouseRequest(int bust, int waist, int torsoLength, int shoulder, int neck, String collarType, String sleeveType, String fit) {
         this.bust = bust;
         this.waist = waist;
         this.torsoLength = torsoLength;
         this.shoulder = shoulder;
+        this.neck = neck;
         this.collarType = collarType;
         this.sleeveType = sleeveType;
+        this.fit = fit;
     }
 
     public int getBust() {
@@ -51,6 +55,14 @@ public class Blouse extends Garment {
         this.shoulder = shoulder;
     }
 
+    public int getNeck() {
+        return neck;
+    }
+
+    public void setNeck(int neck) {
+        this.neck = neck;
+    }
+
     public String getCollarType() {
         return collarType;
     }
@@ -65,5 +77,27 @@ public class Blouse extends Garment {
 
     public void setSleeveType(String sleeveType) {
         this.sleeveType = sleeveType;
+    }
+
+    public String getFit() {
+        return fit;
+    }
+
+    public void setFit(String fit) {
+        this.fit = fit;
+    }
+
+    @Override
+    public String toString() {
+        return "BlouseRequest{" +
+                "bust=" + bust +
+                ", waist=" + waist +
+                ", torsoLength=" + torsoLength +
+                ", shoulder=" + shoulder +
+                ", neck=" + neck +
+                ", collarType='" + collarType + '\'' +
+                ", sleeveType='" + sleeveType + '\'' +
+                ", fit='" + fit + '\'' +
+                '}';
     }
 }

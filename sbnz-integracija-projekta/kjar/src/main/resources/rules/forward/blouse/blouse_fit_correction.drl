@@ -1,0 +1,80 @@
+package forward
+
+import com.ftn.sbnz.model.models.BlouseFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
+
+// ---------------------------------------------
+//  BLOUSE FIT CORRECTION — transforms Recommendation → FabricRecommendation
+// ---------------------------------------------
+
+// a. Loose fit → +10%
+rule "Blouse fit: Loose (+10%)"
+    salience 75
+    no-loop true
+when
+    $bf : BlouseFabric(blouse.fit == "LOOSE")
+    $rec : Recommendation(fabric == $bf.fabric)
+then
+    double newLen = $rec.getRequiredLength() * 1.10;
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        newLen,
+        $rec.getNote() + " Loose kroj — povećana metraža za +10%."
+    );
+    insert(fr);
+    System.out.println("👕 Loose fit → +10% → FabricRecommendation created.");
+end
+
+
+// b. Slim fit + stretch ≥ 10% → -0.1 m
+rule "Blouse fit: Slim with stretch ≥ 10%"
+    salience 74
+    no-loop true
+when
+    $bf : BlouseFabric(
+        blouse.fit == "SLIM",
+        fabric.stretchPercentage >= 10
+    )
+    $rec : Recommendation(fabric == $bf.fabric)
+then
+    double newLen = $rec.getRequiredLength() - 0.1;
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        newLen,
+        $rec.getNote() + " Slim kroj, rastegljiv materijal — smanjena metraža za 0.1 m."
+    );
+    insert(fr);
+    System.out.println("👕 Slim fit (stretch ≥10%) → -0.1 m → FabricRecommendation created.");
+end
+
+
+// c. Slim fit + stretch < 10% → unsuitable → remove Recommendation
+rule "Blouse fit: Slim with stretch < 10%"
+    salience 74
+when
+    $bf : BlouseFabric(
+        blouse.fit == "SLIM",
+        fabric.stretchPercentage < 10
+    )
+    $rec : Recommendation(fabric == $bf.fabric)
+then
+    System.out.println("⚠️ Slim fit not suitable (stretch <10%) → Recommendation removed.");
+end
+
+
+// d. Standard fit → keep base as is → create FabricRecommendation
+rule "Blouse fit: Standard (no correction)"
+    salience 73
+when
+    $bf : BlouseFabric(blouse.fit == "STANDARD")
+    $rec : Recommendation(fabric == $bf.fabric)
+then
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength(),
+        $rec.getNote() + " Standard kroj — bez korekcije metraže."
+    );
+    insert(fr);
+    System.out.println("👕 Standard fit → FabricRecommendation created.");
+end

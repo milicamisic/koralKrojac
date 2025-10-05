@@ -3,7 +3,7 @@ export class ShirtRequest {
   waist!: number; // waist circumference in cm
   torsoLength!: number;         // torso length in cm
   hasSleeves!: boolean;         // whether it has sleeves
-  shoulder!: number;       // shoulder width in cm
+  shoulderWidth!: number;       // shoulder width in cm
   sleeveLength!: number;        // sleeve length in cm
   fit!: string;                 // STANDARD, SLIM, OVERSIZED
 

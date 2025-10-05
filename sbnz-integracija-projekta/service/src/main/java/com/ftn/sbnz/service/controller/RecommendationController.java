@@ -67,6 +67,21 @@ public class RecommendationController {
         return recommendationService.recommendShirt(shirt);
     }
 
+    // blouse
+    @PostMapping("/blouse")
+    public List<RecommendationDTO> recommendBlouse(@RequestBody BlouseRequest request) {
+        Blouse blouse = new Blouse();
+        blouse.setBust(request.getBust());
+        blouse.setWaist(request.getWaist());
+        blouse.setTorsoLength(request.getTorsoLength());
+        blouse.setShoulder(request.getShoulder());
+        blouse.setCollarType(request.getCollarType());
+        blouse.setSleeveType(request.getSleeveType());
+        blouse.setFit(request.getFit());
+
+        return recommendationService.recommendBlouse(blouse);
+    }
+
     // 👖 Pants
     @PostMapping("/pants")
     public List<RecommendationDTO> recommendPants(@RequestBody PantsRequest request) {

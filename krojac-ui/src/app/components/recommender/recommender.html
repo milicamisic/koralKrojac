@@ -53,6 +53,9 @@
   @if (selectedItem === 'Shirt') {
     <app-shirt-form (result)="result = $event"></app-shirt-form>
   }
+  @if (selectedItem === 'Blouse') {
+    <app-blouse-form (result)="result = $event"></app-blouse-form>
+  }
   @if (selectedItem === 'Pants') {
     <app-pants-form (result)="result = $event"></app-pants-form>
   }

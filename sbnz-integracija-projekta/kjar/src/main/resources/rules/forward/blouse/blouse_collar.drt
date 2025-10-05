@@ -3,12 +3,24 @@ collarType
 correction
 note
 
-template "Blouse Collar Correction"
-rule "Blouse Collar Correction @{row.rowNumber}"
+package forward
+
+import com.ftn.sbnz.model.models.BlouseFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Blouse collar correction"
+rule "Blouse collar correction @{collarType}"
+    salience 80
 when
-    $blouse : Blouse( collar == "@{collarType}" )
+    $bf : BlouseFabric(
+        blouse.collarType == "@{collarType}"
+    )
+    $rec : Recommendation(fabric == $bf.fabric)
 then
-    modify($blouse) { addCorrection(@{correction}); }
-    System.out.println("Blouse collar correction: @{note}");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+    System.out.println("👕 Collar correction applied for type @{collarType}: @{note}");
 end
 end template

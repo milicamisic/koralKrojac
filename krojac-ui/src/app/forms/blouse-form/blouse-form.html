@@ -1,0 +1,60 @@
+<h3>Blouse Parameters</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Bust (cm)</mat-label>
+    <input matInput type="number" formControlName="bust" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Waist (cm)</mat-label>
+    <input matInput type="number" formControlName="waist" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Torso Length (cm)</mat-label>
+    <input matInput type="number" formControlName="torsoLength" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Shoulder Width (cm)</mat-label>
+    <input matInput type="number" formControlName="shoulder" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Neck (cm)</mat-label>
+    <input matInput type="number" formControlName="neck" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Collar Type</mat-label>
+    <mat-select formControlName="collarType">
+      @for (c of collarTypes; track $index) {
+        <mat-option [value]="c">{{ c }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sleeve Type</mat-label>
+    <mat-select formControlName="sleeveType">
+      @for (s of sleeveTypes; track $index) {
+        <mat-option [value]="s">{{ s }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Fit Type</mat-label>
+    <mat-select formControlName="fit">
+      @for (f of fitTypes; track $index) {
+        <mat-option [value]="f">{{ f }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Get Recommendation
+  </button>
+</form>

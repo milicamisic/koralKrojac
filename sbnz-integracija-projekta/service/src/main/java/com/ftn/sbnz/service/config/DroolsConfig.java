@@ -25,6 +25,7 @@ public class DroolsConfig {
         // Obična forward pravila
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/forward.drl"));
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/fabric-rules.drl"));
+        kfs.write(ResourceFactory.newClassPathResource("rules/forward/blouse/blouse_fit_correction.drl"));
 //        kfs.write(ResourceFactory.newClassPathResource("rules/forward/tablecloth-rules.drl"));
 
         // Šabloni za haljine
@@ -36,6 +37,15 @@ public class DroolsConfig {
         compileSpreadsheet(kfs, "rules/forward/dress/dress_sleeves.drt", "rules/forward/dress/dress_sleeves.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_height.drt", "rules/forward/dress/dress_height.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_wrap.drt", "rules/forward/dress/dress_wrap.xls");
+        // blouse
+        compileSpreadsheet(kfs, "rules/forward/blouse/blouse_base_length.drt", "rules/forward/blouse/blouse_base_length.xls");
+        compileSpreadsheet(kfs, "rules/forward/blouse/blouse_collar.drt", "rules/forward/blouse/blouse_collar.xls");
+        compileSpreadsheet(kfs, "rules/forward/blouse/blouse_shoulder_correction.drt", "rules/forward/blouse/blouse_shoulder_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/blouse/blouse_sleeve_correction.drt", "rules/forward/blouse/blouse_sleeve_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/blouse/blouse_torso.drt", "rules/forward/blouse/blouse_torso.xls");
+
+
+
         // pravila za sirinu materijala
 //        compileSpreadsheet(kfs, "rules/forward/fabric_width_factor.drt", "rules/forward/fabric_width_factor.xls");
 

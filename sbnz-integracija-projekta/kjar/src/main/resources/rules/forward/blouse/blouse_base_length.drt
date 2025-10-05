@@ -3,12 +3,26 @@ chestMin
 chestMax
 baseLength
 
-template "Blouse Base Length"
-rule "Blouse Base Length @{row.rowNumber}"
+package forward
+
+import com.ftn.sbnz.model.models.BlouseFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Blouse base length"
+rule "Blouse base length @{chestMin}-@{chestMax}"
+    salience 100
 when
-    $blouse : Blouse( chest >= @{chestMin}, chest < @{chestMax} )
+    $bf : BlouseFabric(
+        blouse.bust >= @{chestMin},
+        blouse.bust <= @{chestMax},
+        fabric.category == "CLOTHING"
+    )
 then
-    modify($blouse) { setBaseLength(@{baseLength}); }
-    System.out.println("Blouse base length set to @{baseLength} for chest range @{chestMin}-@{chestMax}");
+    Recommendation rec = new Recommendation(
+        $bf.getFabric(),
+        @{baseLength},
+        "Bazna metraža za bluzu obima grudi " + $bf.getBlouse().getBust() + " cm"
+    );
+    insert(rec);
 end
 end template

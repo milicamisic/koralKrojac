@@ -80,6 +80,37 @@ public class RecommendationService {
         return recommendations;
     }
 
+    public List<RecommendationDTO> recommendBlouse(Blouse blouse) {
+        List<Fabric> fabrics = fabricService.findAll();
+        List<RecommendationDTO> recommendations = new ArrayList<>();
+
+        // 🔹 Create a new KieSession instance for each request
+        KieSession kieSession = forwardKsession.getKieBase().newKieSession();
+
+        // 🔍 Debug – print all loaded rules
+        for (KiePackage kp : kieSession.getKieBase().getKiePackages()) {
+            for (Rule r : kp.getRules()) {
+                System.out.println("Loaded rule: " + r.getName());
+            }
+        }
+
+        // 🧵 Insert all blouse–fabric pairs
+        fabrics.forEach(f -> kieSession.insert(new BlouseFabric(blouse, f)));
+
+        int fired = kieSession.fireAllRules();
+        System.out.println("✅ Fired rules for blouse: " + fired);
+
+        // 🪡 Collect all FabricRecommendation results
+        Collection<?> facts = kieSession.getObjects(o -> o instanceof FabricRecommendation);
+        for (Object o : facts) {
+            recommendations.add(RecommendationMapper.toDTO((FabricRecommendation) o));
+        }
+
+        kieSession.dispose();
+        return recommendations;
+    }
+
+
     // 👕 Shirt
     public List<RecommendationDTO> recommendShirt(Shirt shirt) {
         List<Fabric> fabrics = fabricService.findAll();

@@ -13,6 +13,7 @@ import { TableclothRequest } from '../model/tableclothRequest';
 import { BedsheetRequest } from '../model/bedsheetRequest';
 import { PillowcaseRequest } from '../model/pillowcaseRequest';
 import { CurtainRequest } from '../model/curtainRequest';
+import { BlouseRequest } from '../model/blouseRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,10 @@ export class Api {
   evaluateCurtain(curtain: CurtainRequest): Observable<RecommendationDTO[]> {
     return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/curtain`, curtain);
   }
+
+  evaluateBlouse(request: BlouseRequest): Observable<RecommendationDTO[]> {
+  return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/blouse`, request);
+}
 
   getAlertHistory(): Observable<StockAlert[]> {
     return this.http.get<StockAlert[]>(`${this.baseUrl}/alerts`);

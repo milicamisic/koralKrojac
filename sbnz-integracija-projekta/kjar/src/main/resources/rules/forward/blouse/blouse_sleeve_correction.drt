@@ -1,6 +1,5 @@
 template header
-torsoMin
-torsoMax
+sleeveType
 correction
 note
 
@@ -9,20 +8,17 @@ package forward
 import com.ftn.sbnz.model.models.BlouseFabric
 import com.ftn.sbnz.model.models.Recommendation
 
-template "Blouse torso correction"
-rule "Blouse torso correction @{torsoMin}-@{torsoMax}"
-    salience 95
+template "Blouse sleeve correction"
+rule "Blouse sleeve correction @{sleeveType}"
+    salience 90
 when
-    $bf : BlouseFabric(
-        blouse.torsoLength >= @{torsoMin},
-        blouse.torsoLength <= @{torsoMax}
-    )
+    $bf : BlouseFabric(blouse.sleeveType == "@{sleeveType}")
     $rec : Recommendation(fabric == $bf.fabric)
 then
     modify($rec) {
         setRequiredLength($rec.getRequiredLength() + @{correction}),
         setNote($rec.getNote() + " " + "@{note}")
     }
-    System.out.println("Blouse torso correction applied: @{note}");
+    System.out.println("👕 Sleeve correction applied: @{note}");
 end
 end template
