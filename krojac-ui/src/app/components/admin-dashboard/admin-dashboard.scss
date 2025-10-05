@@ -1,0 +1,15 @@
+.purchase-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #388e3c;
+  font-weight: 500;
+}

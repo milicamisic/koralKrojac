@@ -64,8 +64,10 @@ public class EventService {
 
     public void insertPurchase(String fabric, double qty) {
         PurchaseEvent event = new PurchaseEvent(fabric, qty);
+        System.out.println("🟢 [Service] Ubacujem PurchaseEvent: " + event);
         cepKsession.insert(event);
-        cepKsession.fireAllRules();
+        int fired = cepKsession.fireAllRules();
+        System.out.println("🔥 [Service] Pravila pokrenuta, count=" + fired);
     }
 
     public List<StockAlert> getAlerts() {

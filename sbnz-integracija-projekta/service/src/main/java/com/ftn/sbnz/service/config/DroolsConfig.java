@@ -47,7 +47,7 @@ public class DroolsConfig {
 
 
         // pravila za sirinu materijala
-//        compileSpreadsheet(kfs, "rules/forward/fabric_width_factor.drt", "rules/forward/fabric_width_factor.xls");
+        compileSpreadsheet(kfs, "rules/forward/fabric_width_factor.drt", "rules/forward/fabric_width_factor.xls");
 
         // Build
         KieBuilder kieBuilder = ks.newKieBuilder(kfs).buildAll();

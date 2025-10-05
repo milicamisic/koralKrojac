@@ -20,7 +20,9 @@ then
     FabricRecommendation fr = new FabricRecommendation(
         $rec.getFabric(),
         newLen,
-        $rec.getNote() + " Loose kroj — povećana metraža za +10%."
+        $rec.getNote() + " Loose kroj — povećana metraža za +10%.",
+        "Blouse",
+        ""
     );
     insert(fr);
     System.out.println("👕 Loose fit → +10% → FabricRecommendation created.");
@@ -42,7 +44,9 @@ then
     FabricRecommendation fr = new FabricRecommendation(
         $rec.getFabric(),
         newLen,
-        $rec.getNote() + " Slim kroj, rastegljiv materijal — smanjena metraža za 0.1 m."
+        $rec.getNote() + " Slim kroj, rastegljiv materijal — smanjena metraža za 0.1 m.",
+        "Blouse",
+        ""
     );
     insert(fr);
     System.out.println("👕 Slim fit (stretch ≥10%) → -0.1 m → FabricRecommendation created.");
@@ -73,7 +77,9 @@ then
     FabricRecommendation fr = new FabricRecommendation(
         $rec.getFabric(),
         $rec.getRequiredLength(),
-        $rec.getNote() + " Standard kroj — bez korekcije metraže."
+        $rec.getNote() + " Standard kroj — bez korekcije metraže.",
+        "Blouse",
+        ""
     );
     insert(fr);
     System.out.println("👕 Standard fit → FabricRecommendation created.");

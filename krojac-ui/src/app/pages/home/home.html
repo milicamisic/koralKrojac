@@ -13,6 +13,13 @@
       <p><strong>Nap:</strong> {{ fabric.hasNap ? 'Yes' : 'No' }}</p>
       <p><strong>Drape:</strong> {{ fabric.drape }}</p>
       <p><strong>GSM:</strong> {{ fabric.gsm }}</p>
+      <p><strong>Price per meter:</strong> {{ fabric.pricePerMeter }}</p>
+      <div class="buy-row">
+        <input type="number" [(ngModel)]="fabric.qty" min="1" class="qty-input" />
+        <button mat-raised-button color="primary" (click)="buyFabric(fabric)">
+          🛒 Kupi
+        </button>
+      </div>
     </div>
   </div>
 }

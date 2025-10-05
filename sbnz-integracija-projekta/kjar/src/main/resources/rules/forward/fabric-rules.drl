@@ -45,8 +45,8 @@ end
 rule "Low drape → flowy garments not recommended"
 when
     $r : FabricRecommendation(
-        ((garmentCategory == "Dress" || garmentCategory == "Skirt") && garmentSubtype == "Circle"),
-        (garmentCategory == "Shirt" || garmentCategory == "Blouse"),
+        ((garmentCategory == "Dress" || garmentCategory == "Skirt") && garmentSubtype == "Circle") ||
+        garmentCategory == "Shirt" || garmentCategory == "Blouse",
         fabric.drape == "low"
     )
 then
@@ -214,7 +214,7 @@ when
     $wrap : ShirtFabric($f : fabric, $tee : shirt)
     $r : FabricRecommendation(
         fabric == $f,
-        $tee.fit == "Slim",
+        $tee.fit == "SLIM",
         $f.stretchPercentage < 10.0
     )
 then
@@ -228,13 +228,13 @@ when
     $wrap : ShirtFabric($f : fabric, $tee : shirt)
     $r : FabricRecommendation(
         fabric == $f,
-        $tee.fit == "Slim",
+        $tee.fit == "SLIM",
         $f.stretchPercentage >= 10.0
     )
 then
     System.out.println("[RULE FIRED] Stretch benefit for slim tee " + $f.getName());
     modify($r) {
         setRequiredLength(Math.max(0.0, $r.getRequiredLength() - 0.1)),
-        setNote("Slim + rastegljivo (≥10%) → smanjenje za 0.1 m")
+        setNote("SLIM + rastegljivo (≥10%) → smanjenje za 0.1 m")
     }
 end
