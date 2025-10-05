@@ -12,4 +12,5 @@ export interface Fabric {
   pricePerMeter: number;
   inStock: number;
   season: string;
+  qty: number; // for ordering purposes
 }

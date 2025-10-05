@@ -71,6 +71,11 @@ export class Api {
   return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/blouse`, request);
 }
 
+createSaleEvent(fabric: string, qty: number) {
+  const url = `${this.baseUrl}/events/sale?fabric="${fabric}"&qty=${qty}`;
+  return this.http.post(url, null);
+}
+
   getAlertHistory(): Observable<StockAlert[]> {
     return this.http.get<StockAlert[]>(`${this.baseUrl}/alerts`);
   }
