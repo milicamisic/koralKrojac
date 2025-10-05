@@ -4,16 +4,14 @@ public class Tablecloth {
     private int length;
     private int width;
     private String shape; // rectangle, square, round
-    private double diameter; // za okrugli sto
     private double overhang; // pad sa strane
 
     public Tablecloth() {}
 
-    public Tablecloth(int length, int width, String shape, double diameter, double overhang) {
+    public Tablecloth(int length, int width, String shape, double overhang) {
         this.length = length;
         this.width = width;
         this.shape = shape;
-        this.diameter = diameter;
         this.overhang = overhang;
     }
 
@@ -41,14 +39,6 @@ public class Tablecloth {
         this.shape = shape;
     }
 
-    public double getDiameter() {
-        return diameter;
-    }
-
-    public void setDiameter(double diameter) {
-        this.diameter = diameter;
-    }
-
     public double getOverhang() {
         return overhang;
     }
@@ -63,7 +53,6 @@ public class Tablecloth {
                 "length=" + length +
                 ", width=" + width +
                 ", shape='" + shape + '\'' +
-                ", diameter=" + diameter +
                 ", overhang=" + overhang +
                 '}';
     }

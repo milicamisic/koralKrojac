@@ -3,7 +3,7 @@ package forward
 dialect "java"
 
 import com.ftn.sbnz.model.models.TableclothFabric
-import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
 import com.ftn.sbnz.model.util.TableclothUtils
 
 // Pravougaoni ili kvadratni sto
@@ -11,7 +11,7 @@ rule "Tablecloth rectangle/square"
 when
     $tf : TableclothFabric(
         (shape == "RECTANGLE" || shape == "SQUARE"),
-        getFabricCategory() == "DECORATION"
+        getFabricCategory() == "HOME_DECOR"
     )
 then
     double meters = TableclothUtils.rectangleFabricMeters(
@@ -20,7 +20,7 @@ then
         $tf.getOverhang(),
         $tf.getFabricWidth()
     );
-    insert(new Recommendation($tf.getFabric(), meters,
+    insert(new FabricRecommendation($tf.getFabric(), meters,
         "Stolnjak (" + $tf.getShape() + ") " +
         "dužina=" + (int)$tf.getLength() + "cm, " +
         "širina=" + (int)$tf.getWidth()  + "cm, " +
@@ -32,15 +32,15 @@ rule "Tablecloth round (+10% waste)"
 when
     $tf : TableclothFabric(
         shape == "ROUND",
-        getFabricCategory() == "DECORATION"
+        getFabricCategory() == "HOME_DECOR"
     )
 then
     double meters = TableclothUtils.roundFabricMetersWithWaste(
-        $tf.getDiameter(),
+        $tf.getLength(),
         $tf.getOverhang(),
         $tf.getFabricWidth()
     );
-    insert(new Recommendation($tf.getFabric(), meters,
-        "Stolnjak (okrugli) prečnik=" + (int)$tf.getDiameter() + "cm, " +
+    insert(new FabricRecommendation($tf.getFabric(), meters,
+        "Stolnjak (okrugli) prečnik=" + (int)$tf.getLength() + "cm, " +
         "previs=" + (int)$tf.getOverhang() + "cm (uključeno +10% otpada)"));
 end

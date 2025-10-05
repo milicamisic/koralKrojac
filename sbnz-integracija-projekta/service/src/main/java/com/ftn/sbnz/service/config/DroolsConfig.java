@@ -28,7 +28,7 @@ public class DroolsConfig {
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/blouse/blouse_fit_correction.drl"));
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/shirt/shirt-fit-correction.drl"));
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/curtain-rules.drl"));
-//        kfs.write(ResourceFactory.newClassPathResource("rules/forward/tablecloth-rules.drl"));
+        kfs.write(ResourceFactory.newClassPathResource("rules/forward/tablecloth-rules.drl"));
 
         // Šabloni za haljine
         compileSpreadsheet(kfs, "rules/forward/dress/dress_base_length.drt", "rules/forward/dress/dress_base_length.xls");

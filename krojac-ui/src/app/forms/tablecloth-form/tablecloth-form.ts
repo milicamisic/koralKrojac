@@ -16,11 +16,11 @@ export class TableclothForm {
   @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
-  shapes = ['RECTANGULAR', 'SQUARE', 'ROUND'];
+  shapes = ['RECTANGLE', 'SQUARE', 'ROUND'];
 
   constructor(private fb: FormBuilder, private api: Api) {
     this.form = this.fb.group({
-      shape: ['RECTANGULAR', Validators.required],
+      shape: ['RECTANGLE', Validators.required],
       length: [null, [Validators.required, Validators.min(50)]],
       width: [null, [Validators.required, Validators.min(50)]],
       overhang: [20, [Validators.required, Validators.min(0)]]
