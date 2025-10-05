@@ -1,23 +1,12 @@
-package com.ftn.sbnz.model.models;
+package com.ftn.sbnz.service.dto;
 
-public class Curtain {
+public class CurtainRequest {
     private double height;
     private double width;
-    private double pleatFactor; // 1.5, 2, ...
-    private String hangingType; // kukice, kanal, karike
+    private double pleatFactor;
+    private String hangingType; // HOOKS, RINGS, CHANNEL
     private double marginTop;
     private double marginBottom;
-
-    public Curtain() {}
-
-    public Curtain(double height, double width, double pleatFactor, String hangingType, double marginTop, double marginBottom) {
-        this.height = height;
-        this.width = width;
-        this.pleatFactor = pleatFactor;
-        this.hangingType = hangingType;
-        this.marginTop = marginTop;
-        this.marginBottom = marginBottom;
-    }
 
     public double getHeight() {
         return height;

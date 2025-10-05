@@ -1,20 +1,18 @@
-package com.ftn.sbnz.model.models;
+package com.ftn.sbnz.service.dto;
 
-public class BedSheet {
+public class BedsheetRequest {
+    private String type; // FITTED or FLAT
     private int length;
     private int width;
-    private int height; // dušeka
-    private String type; // sa lastišem, bez lastiša, navlaka za jorgan
+    private int height;
     private int overhang;
 
-    public BedSheet() {}
+    public String getType() {
+        return type;
+    }
 
-    public BedSheet(int length, int width, int height, String type, int overhang) {
-        this.length = length;
-        this.width = width;
-        this.height = height;
+    public void setType(String type) {
         this.type = type;
-        this.overhang = overhang;
     }
 
     public int getLength() {
@@ -39,14 +37,6 @@ public class BedSheet {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getOverhang() {

@@ -7,6 +7,8 @@ public class Tablecloth {
     private double diameter; // za okrugli sto
     private double overhang; // pad sa strane
 
+    public Tablecloth() {}
+
     public Tablecloth(int length, int width, String shape, double diameter, double overhang) {
         this.length = length;
         this.width = width;

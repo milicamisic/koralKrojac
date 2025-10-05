@@ -14,8 +14,8 @@ when
 then
     double meters = CurtainUtils.calculateCurtainLength(
         $cf.getCurtain().getHeight(),
-        $cf.getCurtain().getWindowWidth(),
-        $cf.getCurtain().getPleatingFactor(),
+        $cf.getCurtain().getWidth(),
+        $cf.getCurtain().getPleatFactor(),
         $cf.getCurtain().getHangingType(),
         $cf.getCurtain().getMarginTop(),
         $cf.getCurtain().getMarginBottom(),
@@ -28,6 +28,6 @@ then
         "Zavesa (" + $cf.curtain.hangingType + ") – visina " +
         $cf.curtain.height + " cm, širina prozora " +
         $cf.curtain.windowWidth + " cm, faktor nabrane " +
-        $cf.curtain.pleatingFactor + ", preporučena metraža: " + meters + " m"
+        $cf.curtain.pleatFactor + ", preporučena metraža: " + meters + " m"
     ));
 end

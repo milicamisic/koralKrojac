@@ -3,6 +3,7 @@ package com.ftn.sbnz.service.dto;
 public class DressRequest {
     private String type;        // A-line, Circle, Bodycon, Shift
     private int bust;           // obim grudi
+    private int waist;
     private int hips;           // obim kukova
     private int shoulder;       // ramena
     private int height;         // visina korisnika
@@ -24,6 +25,14 @@ public class DressRequest {
 
     public void setBust(int bust) {
         this.bust = bust;
+    }
+
+    public int getWaist() {
+        return waist;
+    }
+
+    public void setWaist(int waist) {
+        this.waist = waist;
     }
 
     public int getHips() {
@@ -72,5 +81,20 @@ public class DressRequest {
 
     public void setSleeveType(String sleeveType) {
         this.sleeveType = sleeveType;
+    }
+
+    @Override
+    public String toString() {
+        return "DressRequest{" +
+                "type='" + type + '\'' +
+                ", bust=" + bust +
+                ", waist=" + waist +
+                ", hips=" + hips +
+                ", shoulder=" + shoulder +
+                ", height=" + height +
+                ", length=" + length +
+                ", wrap=" + wrap +
+                ", sleeveType='" + sleeveType + '\'' +
+                '}';
     }
 }

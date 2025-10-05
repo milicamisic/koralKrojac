@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { SweaterRequest } from '../../model/sweaterRequest';
 
 @Component({
@@ -13,7 +13,7 @@ import { SweaterRequest } from '../../model/sweaterRequest';
   styleUrl: './sweater-form.scss'
 })
 export class SweaterForm {
- @Output() result = new EventEmitter<Evaluation>();
+ @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   fitOptions = ['STANDARD', 'SLIM', 'LOOSE'];

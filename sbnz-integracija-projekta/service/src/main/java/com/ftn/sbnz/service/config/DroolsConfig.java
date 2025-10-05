@@ -30,6 +30,7 @@ public class DroolsConfig {
         // Šabloni za haljine
         compileSpreadsheet(kfs, "rules/forward/dress/dress_base_length.drt", "rules/forward/dress/dress_base_length.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_bust_correction.drt", "rules/forward/dress/dress_bust_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/dress/dress_waist_correction.drt", "rules/forward/dress/dress_waist_correction.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_hips_correction.drt", "rules/forward/dress/dress_hips_correction.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_shoulders.drt", "rules/forward/dress/dress_shoulders.xls");
         compileSpreadsheet(kfs, "rules/forward/dress/dress_sleeves.drt", "rules/forward/dress/dress_sleeves.xls");

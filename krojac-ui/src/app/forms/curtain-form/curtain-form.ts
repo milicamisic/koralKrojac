@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { CurtainRequest } from '../../model/curtainRequest';
 
 @Component({
@@ -13,7 +13,7 @@ import { CurtainRequest } from '../../model/curtainRequest';
   styleUrl: './curtain-form.scss'
 })
 export class CurtainForm {
-@Output() result = new EventEmitter<Evaluation>();
+  @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   hangingTypes = ['HOOKS', 'RINGS', 'CHANNEL'];
@@ -23,6 +23,8 @@ export class CurtainForm {
     this.form = this.fb.group({
       height: [null, [Validators.required, Validators.min(100)]],
       width: [null, [Validators.required, Validators.min(50)]],
+      marginTop: [null, [Validators.required, Validators.min(0)]],
+      marginBottom: [null, [Validators.required], Validators.min(0)],
       pleatFactor: [2, Validators.required],
       hangingType: ['HOOKS', Validators.required]
     });

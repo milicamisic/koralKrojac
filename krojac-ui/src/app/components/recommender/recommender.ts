@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { ShirtRequest } from '../../model/shirtRequest';
 import { DressForm } from "../../forms/dress-form/dress-form";
 import { ShirtForm } from "../../forms/shirt-form/shirt-form";
@@ -40,13 +40,7 @@ export class Recommender {
     category: string | null = null;
     selectedItem: string | null = null;
     form: FormGroup;
-    result: Evaluation = {
-                            baseLength: 0,
-                            totalLength: 0,
-                            recommendedFabrics: [],
-                            messages: [],
-                            warnings: []
-                          };
+    result: RecommendationDTO[] = [];
 
     categories = ['Clothing', 'Decoration'];
 
@@ -81,10 +75,11 @@ export class Recommender {
 
       const shirtRequest: ShirtRequest = {
         bust: values.chestCircumference,
+        waist: values.waist,
         torsoLength: values.torsoLength,
         hasSleeves: values.sleeveLength > 0,
         sleeveLength: values.sleeveLength,
-        shoulderWidth: values.shoulderWidth,
+        shoulder: values.shoulderWidth,
         fit: values.fit
       };
       this.api.evaluateShirt(shirtRequest)

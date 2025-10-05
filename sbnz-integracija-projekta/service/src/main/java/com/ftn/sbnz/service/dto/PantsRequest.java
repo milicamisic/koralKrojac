@@ -1,21 +1,11 @@
-package com.ftn.sbnz.model.models;
+package com.ftn.sbnz.service.dto;
 
-public class Pants extends Garment {
+public class PantsRequest {
     private int waist;
     private int hips;
-    private int inseamLength;  // unutrašnja dužina
-    private int outseamLength; // spoljašnja dužina
-    private String fit; // slim, loose, standard
-
-    public Pants() {}
-
-    public Pants(int waist, int hips, int inseamLength, int outseamLength, String fit) {
-        this.waist = waist;
-        this.hips = hips;
-        this.inseamLength = inseamLength;
-        this.outseamLength = outseamLength;
-        this.fit = fit;
-    }
+    private int inseamLength;
+    private int outseamLength;
+    private String fit; // STANDARD, SLIM, LOOSE
 
     public int getWaist() {
         return waist;
@@ -49,12 +39,10 @@ public class Pants extends Garment {
         this.outseamLength = outseamLength;
     }
 
-    @Override
     public String getFit() {
         return fit;
     }
 
-    @Override
     public void setFit(String fit) {
         this.fit = fit;
     }

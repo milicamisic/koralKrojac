@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { PillowcaseRequest } from '../../model/pillowcaseRequest';
 
 
@@ -14,7 +14,7 @@ import { PillowcaseRequest } from '../../model/pillowcaseRequest';
   styleUrl: './pillowcase-form.scss'
 })
 export class PillowcaseForm {
-@Output() result = new EventEmitter<Evaluation>();
+  @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   constructor(private fb: FormBuilder, private api: Api) {

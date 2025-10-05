@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { BedsheetRequest } from '../../model/bedsheetRequest';
 
 @Component({
@@ -13,7 +13,7 @@ import { BedsheetRequest } from '../../model/bedsheetRequest';
   styleUrl: './bedsheet-form.scss'
 })
 export class BedsheetForm {
- @Output() result = new EventEmitter<Evaluation>();
+  @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   sheetTypes = ['FITTED', 'FLAT'];

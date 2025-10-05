@@ -1,0 +1,58 @@
+package com.ftn.sbnz.service.dto;
+
+public class SweaterRequest {
+    private int bust;
+    private int torsoLength;
+    private int sleeveLength;
+    private int shoulderWidth;
+    private String fit; // STANDARD, SLIM, LOOSE
+    private String yarnThickness; // THIN, MEDIUM, THICK
+
+    public int getBust() {
+        return bust;
+    }
+
+    public void setBust(int bust) {
+        this.bust = bust;
+    }
+
+    public int getTorsoLength() {
+        return torsoLength;
+    }
+
+    public void setTorsoLength(int torsoLength) {
+        this.torsoLength = torsoLength;
+    }
+
+    public int getSleeveLength() {
+        return sleeveLength;
+    }
+
+    public void setSleeveLength(int sleeveLength) {
+        this.sleeveLength = sleeveLength;
+    }
+
+    public int getShoulderWidth() {
+        return shoulderWidth;
+    }
+
+    public void setShoulderWidth(int shoulderWidth) {
+        this.shoulderWidth = shoulderWidth;
+    }
+
+    public String getFit() {
+        return fit;
+    }
+
+    public void setFit(String fit) {
+        this.fit = fit;
+    }
+
+    public String getYarnThickness() {
+        return yarnThickness;
+    }
+
+    public void setYarnThickness(String yarnThickness) {
+        this.yarnThickness = yarnThickness;
+    }
+}

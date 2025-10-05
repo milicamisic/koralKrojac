@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
+
 @Component({
   selector: 'app-pants-form',
   imports: [CommonModule, ReactiveFormsModule, ...MATERIAL_IMPORTS],
@@ -11,7 +12,7 @@ import { Evaluation } from '../../model/evaluation';
   styleUrl: './pants-form.scss'
 })
 export class PantsForm {
-@Output() result = new EventEmitter<Evaluation>();
+@Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   fitOptions = ['STANDARD', 'SLIM', 'LOOSE'];

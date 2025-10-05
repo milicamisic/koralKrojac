@@ -1,0 +1,30 @@
+template header
+dressType
+minWaist
+maxWaist
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.DressFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Dress waist correction"
+rule "Waist correction @{dressType} @{minWaist}-@{maxWaist}"
+    salience 87
+when
+    $df : DressFabric(
+        dress.type == "@{dressType}",
+        dress.waist >= @{minWaist},
+        dress.waist <= @{maxWaist}
+    )
+    $rec : Recommendation(fabric == $df.fabric)
+then
+    System.out.println("haljina struk korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+end
+end template

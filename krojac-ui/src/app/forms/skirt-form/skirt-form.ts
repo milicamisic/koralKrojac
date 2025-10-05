@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
 import { SkirtRequest } from '../../model/skirtRequest';
 @Component({
   selector: 'app-skirt-form',
@@ -12,7 +12,7 @@ imports: [CommonModule, ReactiveFormsModule, ...MATERIAL_IMPORTS],
   styleUrl: './skirt-form.scss'
 })
 export class SkirtForm {
-@Output() result = new EventEmitter<Evaluation>();
+  @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   skirtTypes = ['A-line', 'Pencil', 'Circle'];

@@ -8,6 +8,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export const MATERIAL_IMPORTS = [
   MatToolbarModule,
@@ -19,4 +22,7 @@ export const MATERIAL_IMPORTS = [
   MatGridListModule,
   MatFormFieldModule,
   MatSlideToggleModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule
 ];

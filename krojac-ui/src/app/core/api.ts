@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fabric } from '../model/fabric';
 import { ShirtRequest } from '../model/shirtRequest';
-import { Evaluation } from '../model/evaluation';
+import { RecommendationDTO } from '../model/recommendationDTO';
 import { StockAlert } from './alert';
 import { DressRequest } from '../model/dressRequest';
 import { PantsRequest } from '../model/pantsRequest';
@@ -30,40 +30,40 @@ export class Api {
     return this.http.get<any>(`${this.baseUrl}/recommendations/test-rules`);
   }
 
-  evaluateShirt(shirt: ShirtRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/shirt`, { shirtRequest: shirt });
+  evaluateShirt(shirt: ShirtRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/shirt`, shirt);
   }
 
-  evaluateDress(dress: DressRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/dress`, { dressRequest: dress });
+  evaluateDress(dress: DressRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/dress`, dress);
   }
 
-  evaluatePants(pants: PantsRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/pants`, { pantsRequest: pants });
+  evaluatePants(pants: PantsRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/pants`, pants);
   }
 
-  evaluateSkirt(skirt: SkirtRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/skirt`, { skirtRequest: skirt });
+  evaluateSkirt(skirt: SkirtRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/skirt`, skirt);
   }
 
-  evaluateSweater(sweater: SweaterRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/sweater`, { sweaterRequest: sweater });
+  evaluateSweater(sweater: SweaterRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/sweater`, sweater);
   }
 
-  evaluateTablecloth(tablecloth: TableclothRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/tablecloth`, { tableclothRequest: tablecloth });
+  evaluateTablecloth(tablecloth: TableclothRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/tablecloth`, tablecloth);
   }
 
-  evaluateBedsheet(bedsheet: BedsheetRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/bedsheet`, { bedsheetRequest: bedsheet });
+  evaluateBedsheet(bedsheet: BedsheetRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/bedsheet`, bedsheet);
   }
 
-  evaluatePillowcase(pillowcase: PillowcaseRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/pillowcase`, { pillowcaseRequest: pillowcase });
+  evaluatePillowcase(pillowcase: PillowcaseRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/pillowcase`, pillowcase);
   }
 
-  evaluateCurtain(curtain: CurtainRequest): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.baseUrl}/recommendations/curtain`, { curtainRequest: curtain });
+  evaluateCurtain(curtain: CurtainRequest): Observable<RecommendationDTO[]> {
+    return this.http.post<RecommendationDTO[]>(`${this.baseUrl}/recommendations/curtain`, curtain);
   }
 
   getAlertHistory(): Observable<StockAlert[]> {

@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../material';
 import { Api } from '../../core/api';
-import { Evaluation } from '../../model/evaluation';
+import { RecommendationDTO } from '../../model/recommendationDTO';
+
+// todo nisam shirtrequest jos tad imala
+
 @Component({
   selector: 'app-shirt-form',
   imports: [CommonModule, ReactiveFormsModule, ...MATERIAL_IMPORTS],
@@ -11,7 +14,7 @@ import { Evaluation } from '../../model/evaluation';
   styleUrl: './shirt-form.scss'
 })
 export class ShirtForm {
-@Output() result = new EventEmitter<Evaluation>();
+  @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
   fitOptions = ['STANDARD', 'SLIM', 'OVERSIZED'];
@@ -19,7 +22,8 @@ export class ShirtForm {
 
   constructor(private fb: FormBuilder, private api: Api) {
     this.form = this.fb.group({
-      chestCircumference: [null, [Validators.required, Validators.min(50)]],
+      bust: [null, [Validators.required, Validators.min(50)]],
+      waist: [null, [Validators.required, Validators.min(50)]],
       torsoLength: [null, [Validators.required, Validators.min(40)]],
       shoulderWidth: [null, [Validators.required, Validators.min(30)]],
       sleeveLength: [null],

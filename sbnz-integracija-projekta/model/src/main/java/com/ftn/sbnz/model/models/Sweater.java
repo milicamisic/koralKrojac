@@ -8,6 +8,8 @@ public class Sweater extends Garment {
     private String yarnThickness; // tanka, srednja, debela
     private boolean hasSleeves;
 
+    public Sweater() {}
+
     public Sweater(int bust, int torsoLength, int sleeveLength, int shoulder, String yarnThickness, boolean hasSleeves) {
         this.bust = bust;
         this.torsoLength = torsoLength;
