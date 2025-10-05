@@ -70,7 +70,7 @@ when
 then
     System.out.println("Prodaja > nabavke za: " + $fabric + " (30 dana)");
     insert(new StockAlert($fabric, "SALES_OVER_PURCHASES",
-            "Prodaja > nabavke za: " + $fabric + " (30 dana)"));
+            "Prodaja > nabavke za: " + $fabric + " (30 dana). prodaja=" +$sumSales +", nabavka=" + $sumPurchases));
 end
 
 
