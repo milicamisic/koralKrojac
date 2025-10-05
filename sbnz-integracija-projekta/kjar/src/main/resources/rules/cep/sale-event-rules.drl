@@ -80,14 +80,8 @@ when
     $fabric : Fabric( $fname : name, $season : season )
     not StockAlert(fabric == $fname, type == "STAGNATION")
     // 2) Za njega nije bilo prodaje u poslednjih 60 dana
-    not SaleEvent( fabricName == $fname ) over window:time(60d)
-
-    // 3) Uslov: ako je univerzalan, pravilo uvek važi;
-    // ako je sezonski, proveravamo da li je trenutno u sezoni
-    eval(
-        $season == Season.UNIVERSAL ||
-        SeasonUtils.isInSeason($season)
-    )
+    not SaleEvent( fabricName == $fname) over window:time(60d)
+    eval( $season == Season.UNIVERSAL || SeasonUtils.isInSeason($season) )
 then
     System.out.println("Stagnacija 60 dana → predlog rasprodaje/izbacivanja: " + $fname);
     insert(new StockAlert($fname, "STAGNATION",
