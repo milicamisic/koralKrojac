@@ -1,0 +1,24 @@
+template header
+sleeveType
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.ShirtFabric
+import com.ftn.sbnz.model.models.Recommendation
+
+template "Shirt sleeve correction"
+rule "Shirt sleeve correction @{sleeveType}"
+    salience 90
+when
+    $bf : ShirtFabric(shirt.sleeveType == "@{sleeveType}")
+    $rec : Recommendation(fabric == $bf.fabric)
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+    System.out.println("👕 Sleeve correction applied: @{note}");
+end
+end template

@@ -1,6 +1,6 @@
 template header
-minShoulder
-maxShoulder
+minTorso
+maxTorso
 correction
 note
 
@@ -11,17 +11,18 @@ dialect "java"
 import com.ftn.sbnz.model.models.ShirtFabric
 import com.ftn.sbnz.model.models.Recommendation
 
-template "Shirt shoulder correction"
-rule "Shirt shoulder @{minShoulder}-@{maxShoulder}"
-    salience 85
+template "Shirt torso correction"
+rule "Shirt torso @{minTorso}-@{maxTorso}"
+    salience 95
 when
-    $sf : ShirtFabric(shirt.shoulder >= @{minShoulder}, shirt.shoulder < @{maxShoulder})
+    $sf : ShirtFabric(shirt.torsoLength >= @{minTorso}, shirt.torsoLength < @{maxTorso})
     $rec : Recommendation(fabric == $sf.fabric)
+
 then
     modify($rec) {
         setRequiredLength($rec.getRequiredLength() + @{correction}),
         setNote($rec.getNote() + " " + "@{note}")
     }
-    System.out.println("👕 Shoulder correction @{correction} m applied for shoulder width " + $sf.getShirt().getShoulder());
+    System.out.println("👕 Torso correction @{correction} m applied for torso length " + $sf.getShirt().getTorsoLength());
 end
 end template

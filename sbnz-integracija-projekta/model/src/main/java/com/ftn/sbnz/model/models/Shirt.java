@@ -2,21 +2,17 @@ package com.ftn.sbnz.model.models;
 
 public class Shirt extends Garment {
     private int bust;
-    private int waist;
     private int torsoLength;
     private int shoulder;
-    private boolean hasSleeves;
-    private int sleeveLength;
+    private String sleeveType;
 
     public Shirt() {}
 
-    public Shirt(int bust, int waist, int torsoLength, int shoulder, boolean hasSleeves, int sleeveLength) {
+    public Shirt(int bust, int waist, int torsoLength, int shoulder, boolean hasSleeves, int sleeveLength, String sleeveType) {
         this.bust = bust;
-        this.waist = waist;
         this.torsoLength = torsoLength;
         this.shoulder = shoulder;
-        this.hasSleeves = hasSleeves;
-        this.sleeveLength = sleeveLength;
+        this.sleeveType = sleeveType;
     }
 
     public int getBust() {
@@ -25,14 +21,6 @@ public class Shirt extends Garment {
 
     public void setBust(int bust) {
         this.bust = bust;
-    }
-
-    public int getWaist() {
-        return waist;
-    }
-
-    public void setWaist(int waist) {
-        this.waist = waist;
     }
 
     public int getTorsoLength() {
@@ -51,20 +39,12 @@ public class Shirt extends Garment {
         this.shoulder = shoulder;
     }
 
-    public boolean isHasSleeves() {
-        return hasSleeves;
+    public String getSleeveType() {
+        return sleeveType;
     }
 
-    public void setHasSleeves(boolean hasSleeves) {
-        this.hasSleeves = hasSleeves;
-    }
-
-    public int getSleeveLength() {
-        return sleeveLength;
-    }
-
-    public void setSleeveLength(int sleeveLength) {
-        this.sleeveLength = sleeveLength;
+    public void setSleeveType(String sleeveType) {
+        this.sleeveType = sleeveType;
     }
 
     @Override
@@ -72,11 +52,8 @@ public class Shirt extends Garment {
         return "Shirt{" +
                 "fit='" + fit + '\'' +
                 ", color='" + color + '\'' +
-                ", sleeveLength=" + sleeveLength +
-                ", hasSleeves=" + hasSleeves +
                 ", shoulder=" + shoulder +
                 ", torsoLength=" + torsoLength +
-                ", waist=" + waist +
                 ", bust=" + bust +
                 '}';
     }

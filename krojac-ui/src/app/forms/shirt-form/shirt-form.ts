@@ -17,16 +17,14 @@ export class ShirtForm {
   @Output() result = new EventEmitter<RecommendationDTO[]>();
   form!: FormGroup;
 
-  fitOptions = ['STANDARD', 'SLIM', 'OVERSIZED'];
+  fitOptions = ['STANDARD', 'SLIM', 'LOOSE'];
   sleeveTypes = ['NONE', 'SHORT', 'LONG'];
 
   constructor(private fb: FormBuilder, private api: Api) {
     this.form = this.fb.group({
       bust: [null, [Validators.required, Validators.min(50)]],
-      waist: [null, [Validators.required, Validators.min(50)]],
       torsoLength: [null, [Validators.required, Validators.min(40)]],
       shoulderWidth: [null, [Validators.required, Validators.min(30)]],
-      sleeveLength: [null],
       sleeveType: ['NONE', Validators.required],
       fit: ['STANDARD', Validators.required]
     });

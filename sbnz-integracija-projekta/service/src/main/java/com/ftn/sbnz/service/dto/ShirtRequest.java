@@ -3,10 +3,9 @@ package com.ftn.sbnz.service.dto;
 public class ShirtRequest {
     private int bust;
     private int torsoLength;
-    private boolean hasSleeves;
-    private int sleeveLength;
     private int shoulderWidth;
     private String fit; // STANDARD, SLIM, OVERSIZED
+    private String sleeveType;
 
     public int getBust() {
         return bust;
@@ -24,20 +23,12 @@ public class ShirtRequest {
         this.torsoLength = torsoLength;
     }
 
-    public boolean isHasSleeves() {
-        return hasSleeves;
+    public String getSleeveType() {
+        return sleeveType;
     }
 
-    public void setHasSleeves(boolean hasSleeves) {
-        this.hasSleeves = hasSleeves;
-    }
-
-    public int getSleeveLength() {
-        return sleeveLength;
-    }
-
-    public void setSleeveLength(int sleeveLength) {
-        this.sleeveLength = sleeveLength;
+    public void setSleeveType(String sleeveType) {
+        this.sleeveType = sleeveType;
     }
 
     public int getShoulderWidth() {

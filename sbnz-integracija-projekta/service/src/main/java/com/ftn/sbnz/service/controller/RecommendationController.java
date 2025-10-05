@@ -59,8 +59,7 @@ public class RecommendationController {
         Shirt shirt = new Shirt();
         shirt.setBust(request.getBust());
         shirt.setTorsoLength(request.getTorsoLength());
-        shirt.setHasSleeves(request.isHasSleeves());
-        shirt.setSleeveLength(request.getSleeveLength());
+        shirt.setSleeveType(request.getSleeveType());
         shirt.setShoulder(request.getShoulderWidth());
         shirt.setFit(request.getFit());
 

@@ -210,13 +210,13 @@ then
 end
 
 rule "Stretch check for slim tee"
+    no-loop true
 when
-    $wrap : ShirtFabric($f : fabric, $tee : shirt)
     $r : FabricRecommendation(
-        fabric == $f,
-        $tee.fit == "SLIM",
-        $f.stretchPercentage < 10.0
-    )
+            $f: fabric,
+            garmentSubtype == "SLIM",
+            $f.stretchPercentage < 10.0
+        )
 then
     System.out.println("Upozorenje: " + $f.getName() +
         " nije pogodan za uzak kroj (rastegljivost <10%).");
@@ -224,11 +224,11 @@ then
 end
 // ako ne budu radila ova za druge predmete samo izbacis sve te ShirtFabric, PantsFabric.. i sve stavis preko FabricRecommendation
 rule "Stretch benefit for slim tee"
+    no-loop true
 when
-    $wrap : ShirtFabric($f : fabric, $tee : shirt)
     $r : FabricRecommendation(
-        fabric == $f,
-        $tee.fit == "SLIM",
+        $f: fabric,
+        garmentSubtype == "SLIM",
         $f.stretchPercentage >= 10.0
     )
 then
