@@ -10,6 +10,7 @@ import com.ftn.sbnz.model.models.FabricRecommendation
 
 template "Fabric width correction"
 rule "Fabric width @{widthMin}-@{widthMax}"
+    no-loop true
 when
     $r : FabricRecommendation(
         $len : requiredLength,
@@ -17,6 +18,7 @@ when
         fabric.width <= @{widthMax}
     )
 then
+    System.out.println("[RULE FIRED] Fabric width @{widthMin}-@{widthMax}");
     modify($r) {
         setRequiredLength($len * @{factor}),
         setNote($r.getNote() + " | @{note}")
