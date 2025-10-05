@@ -1,17 +1,28 @@
 template header
-chestMin
-chestMax
+minChest
+maxChest
 baseLength
+note
 
-package templates
-import com.ftn.sbnz.model.models.Shirt
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.ShirtFabric
 import com.ftn.sbnz.model.models.Recommendation
 
-rule "Shirt - base length @chestMin-@chestMax"
+template "Shirt base length"
+rule "Shirt base @{minChest}-@{maxChest}"
+    salience 100
 when
-    $s : Shirt( chest >= @chestMin, chest < @chestMax )
+    $req : ShirtFabric(shirt.bust >= @{minChest}, shirt.bust < @{maxChest})
 then
-    Recommendation rec = new Recommendation($s.getFabric(), @baseLength,
-        "Base length for shirt (chest=" + $s.getChest() + ")");
+    Recommendation rec = new Recommendation(
+        $req.getFabric(),
+        @{baseLength},
+        "@{note}"
+    );
     insert(rec);
+    System.out.println("👕 Shirt base length set to @{baseLength} m for chest " + $req.getShirt().getBust());
 end
+end template
