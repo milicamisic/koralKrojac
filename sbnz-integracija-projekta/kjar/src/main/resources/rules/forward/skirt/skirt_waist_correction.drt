@@ -1,0 +1,30 @@
+template header
+waistMin
+waistMax
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.Skirt;
+import com.ftn.sbnz.model.models.Recommendation;
+import com.ftn.sbnz.model.models.FabricRecommendation;
+
+template "Skirt Waist Correction"
+rule "Waist correction @{waistMin}-@{waistMax}"
+    salience 80
+when
+    $s : SkirtFabric($skirt: skirt, skirt.waist >= @{waistMin}, skirt.waist < @{waistMax})
+    $rec : Recommendation(fabric == $s.fabric)
+then
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength() + @{correction},
+        $rec.getNote() + "@{note}",
+        "Skirt",
+        $skirt.getType()
+    );
+    insert(fr);
+    System.out.println("[Skirt] Skirt Waist Correction → FabricRecommendation created.");
+end
+end template

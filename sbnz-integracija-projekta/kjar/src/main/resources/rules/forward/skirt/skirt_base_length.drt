@@ -2,20 +2,21 @@ template header
 skirtType
 lengthMin
 lengthMax
-waistMin
-waistMax
 baseLength
 note
 
-package templates
-import com.ftn.sbnz.model.models.Skirt;
+package forward
+
+import com.ftn.sbnz.model.models.SkirtFabric;
 import com.ftn.sbnz.model.models.Recommendation;
 
 template "Skirt Base Length"
 rule "Base length for @{skirtType} skirt @{lengthMin}-@{lengthMax} cm"
+    salience 100
 when
-    $s : Skirt(type == "@{skirtType}", length >= @{lengthMin}, length < @{lengthMax}, waist >= @{waistMin}, waist < @{waistMax})
+    $s : SkirtFabric(skirt.type == "@{skirtType}", skirt.length >= @{lengthMin}, skirt.length < @{lengthMax})
 then
     insert(new Recommendation($s.getFabric(), @{baseLength}, "@{note}"));
+    System.out.println("Skirt base length set to @{baseLength} m for length " + $s.getSkirt().getLength());
 end
 end template

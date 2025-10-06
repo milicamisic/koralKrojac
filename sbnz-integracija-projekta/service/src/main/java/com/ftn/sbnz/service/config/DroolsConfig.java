@@ -57,6 +57,11 @@ public class DroolsConfig {
         compileSpreadsheet(kfs, "rules/forward/pants/pants_base_length.drt", "rules/forward/pants/pants_base_length.xls");
         compileSpreadsheet(kfs, "rules/forward/pants/pants_length_correction.drt", "rules/forward/pants/pants_length_correction.xls");
         compileSpreadsheet(kfs, "rules/forward/pants/pants_waist_correction.drt", "rules/forward/pants/pants_waist_correction.xls");
+        //skirt
+        compileSpreadsheet(kfs, "rules/forward/skirt/skirt_base_length.drt", "rules/forward/skirt/skirt_base_length.xls");
+        compileSpreadsheet(kfs, "rules/forward/skirt/skirt_hips_correction.drt", "rules/forward/skirt/skirt_hips_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/skirt/skirt_waist_correction.drt", "rules/forward/skirt/skirt_waist_correction.xls");
+
 
 
 

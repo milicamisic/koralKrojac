@@ -1,0 +1,26 @@
+template header
+skirtType
+hipsMin
+hipsMax
+correction
+note
+
+package forward
+
+import com.ftn.sbnz.model.models.SkirtFabric;
+import com.ftn.sbnz.model.models.Recommendation;
+
+template "Skirt Hips Correction"
+rule "Hips correction for @{skirtType} @{hipsMin}-@{hipsMax}"
+    salience 90
+when
+    $s : SkirtFabric(skirt.type == "@{skirtType}", skirt.hips >= @{hipsMin}, skirt.hips < @{hipsMax})
+    $rec : Recommendation(fabric == $s.fabric)
+then
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
+    System.out.println("Hips correction @{correction} m applied for hips width " + $s.getSkirt().getHips());
+end
+end template
