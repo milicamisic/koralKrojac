@@ -3,8 +3,7 @@ package com.ftn.sbnz.service.dto;
 public class PantsRequest {
     private int waist;
     private int hips;
-    private int inseamLength;
-    private int outseamLength;
+    private int length;
     private String fit; // STANDARD, SLIM, LOOSE
 
     public int getWaist() {
@@ -23,20 +22,12 @@ public class PantsRequest {
         this.hips = hips;
     }
 
-    public int getInseamLength() {
-        return inseamLength;
+    public int getLength() {
+        return length;
     }
 
-    public void setInseamLength(int inseamLength) {
-        this.inseamLength = inseamLength;
-    }
-
-    public int getOutseamLength() {
-        return outseamLength;
-    }
-
-    public void setOutseamLength(int outseamLength) {
-        this.outseamLength = outseamLength;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public String getFit() {

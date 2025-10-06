@@ -31,6 +31,7 @@ public class DroolsConfig {
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/tablecloth-rules.drl"));
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/bed-sheet-rules.drl"));
         kfs.write(ResourceFactory.newClassPathResource("rules/forward/pillowcase-rules.drl"));
+        kfs.write(ResourceFactory.newClassPathResource("rules/forward/pants/pants-fit-correction.drl"));
 
         // Šabloni za haljine
         compileSpreadsheet(kfs, "rules/forward/dress/dress_base_length.drt", "rules/forward/dress/dress_base_length.xls");
@@ -52,6 +53,10 @@ public class DroolsConfig {
         compileSpreadsheet(kfs, "rules/forward/shirt/shirt_torso.drt", "rules/forward/shirt/shirt_torso.xls");
         compileSpreadsheet(kfs, "rules/forward/shirt/shirt_sleeve_correction.drt", "rules/forward/shirt/shirt_sleeve_correction.xls");
         compileSpreadsheet(kfs, "rules/forward/shirt/shirt_shoulders.drt", "rules/forward/shirt/shirt_shoulders.xls");
+        // pants
+        compileSpreadsheet(kfs, "rules/forward/pants/pants_base_length.drt", "rules/forward/pants/pants_base_length.xls");
+        compileSpreadsheet(kfs, "rules/forward/pants/pants_length_correction.drt", "rules/forward/pants/pants_length_correction.xls");
+        compileSpreadsheet(kfs, "rules/forward/pants/pants_waist_correction.drt", "rules/forward/pants/pants_waist_correction.xls");
 
 
 

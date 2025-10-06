@@ -87,8 +87,7 @@ public class RecommendationController {
         Pants pants = new Pants();
         pants.setWaist(request.getWaist());
         pants.setHips(request.getHips());
-        pants.setInseamLength(request.getInseamLength());
-        pants.setOutseamLength(request.getOutseamLength());
+        pants.setLength(request.getLength());
         pants.setFit(request.getFit());
 
         return recommendationService.recommendPants(pants);

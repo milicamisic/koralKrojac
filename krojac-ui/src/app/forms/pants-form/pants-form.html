@@ -13,13 +13,8 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Inseam Length (cm)</mat-label>
-    <input matInput type="number" formControlName="inseam">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Outseam Length (cm)</mat-label>
-    <input matInput type="number" formControlName="outseam">
+    <mat-label>Length (cm)</mat-label>
+    <input matInput type="number" formControlName="length">
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width">
@@ -29,11 +24,6 @@
         <mat-option [value]="fit">{{ fit }}</mat-option>
       }
     </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Stretch (%)</mat-label>
-    <input matInput type="number" formControlName="stretchPercent">
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">

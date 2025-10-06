@@ -1,0 +1,85 @@
+package forward
+
+dialect "java"
+
+import com.ftn.sbnz.model.models.PantsFabric
+import com.ftn.sbnz.model.models.Recommendation
+import com.ftn.sbnz.model.models.FabricRecommendation
+
+
+// Loose fit (široke nogavice)
+rule "Loose fit (+10%)"
+    salience 75
+    no-loop true
+when
+    $pf : PantsFabric(pants.fit == "LOOSE")
+    $rec : Recommendation(fabric == $pf.fabric)
+then
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength() + 0.1 * $rec.getRequiredLength(),
+        $rec.getNote() + " Loose kroj — povećana metraža za +10%.",
+        "Pants",
+        ""
+    );
+    insert(fr);
+    System.out.println("👖 Loose fit: +10% dužine,  → FabricRecommendation created.");
+end
+
+
+// Slim fit + rastegljivost ≥ 10%
+rule "Slim fit stretchy (>=10%)"
+    salience 74
+    no-loop true
+when
+    $pf : PantsFabric(
+        pants.fit == "SLIM",
+        fabric.stretchPercentage >= 10
+    )
+    $rec : Recommendation(fabric == $pf.fabric)
+then
+    double newLen = $rec.getRequiredLength() - 0.1;
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        newLen,
+        $rec.getNote() + " Slim kroj — rastegljiv materijal (≥10%) smanjuje metražu za 0.1m.",
+        "Pants",
+        "SLIM"
+    );
+    insert(fr);
+    System.out.println("👖 Slim fit (rastegljiv ≥10%): -0.1m  → FabricRecommendation created.");
+end
+
+// Slim fit + rastegljivost < 10%
+rule "Slim fit non-stretchy (<10%)"
+    salience 74
+    no-loop true
+when
+     $pf : PantsFabric(
+        pants.fit == "SLIM",
+        fabric.stretchPercentage < 10
+     )
+    $rec : Recommendation(fabric == $pf.fabric)
+then
+    System.out.println("⚠️ Slim fit (rastegljivost <10%) — materijal nije pogodan → Recommendation removed.");
+end
+
+
+
+// Standard fit (bez korekcije)
+rule "Standard fit (no correction)"
+    salience 73
+when
+    $pf : PantsFabric(pants.fit == "STANDARD")
+    $rec : Recommendation(fabric == $pf.fabric)
+then
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength(),
+        $rec.getNote() + " Standard kroj — bez korekcije metraže.",
+        "Pants",
+        ""
+    );
+    insert(fr);
+    System.out.println("👖 Standard fit: bez korekcije");
+end

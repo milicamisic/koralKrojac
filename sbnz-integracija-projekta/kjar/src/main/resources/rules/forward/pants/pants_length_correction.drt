@@ -6,15 +6,20 @@ note
 
 package templates.pants
 
-import com.ftn.sbnz.model.models.Pants
+import com.ftn.sbnz.model.models.PantsFabric
 import com.ftn.sbnz.model.models.Recommendation
 
 template "Pants length correction"
 rule "Pants length @{lengthMin}-@{lengthMax}"
+    salience 95
 when
-    $p : Pants( length >= @{lengthMin}, length <= @{lengthMax}, fabric.category == "CLOTHING" )
+    $p : PantsFabric( pants.length >= @{lengthMin}, pants.length <= @{lengthMax}, fabric.category == "CLOTHING" )
+    $rec : Recommendation(fabric == $p.fabric)
 then
-    Recommendation rec = new Recommendation($p.getFabric(), @{correction}, "@{note}");
-    insert(rec);
+    System.out.println("pantalone duzina korekcija");
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " " + "@{note}")
+    }
 end
 end template

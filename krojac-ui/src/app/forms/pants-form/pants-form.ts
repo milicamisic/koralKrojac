@@ -21,10 +21,8 @@ export class PantsForm {
     this.form = this.fb.group({
       waist: [null, [Validators.required, Validators.min(50)]],
       hips: [null, [Validators.required, Validators.min(50)]],
-      inseam: [null, [Validators.required, Validators.min(50)]],  // unutrašnja dužina
-      outseam: [null, [Validators.required, Validators.min(50)]],  // spoljašnja dužina
-      fit: ['STANDARD', Validators.required],
-      stretchPercent: [null] // dodatno polje ako backend podržava rastegljivost
+      length: [null, [Validators.required, Validators.min(50)]],  // unutrašnja dužina
+      fit: ['STANDARD', Validators.required]
     });
   }
 
