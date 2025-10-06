@@ -39,7 +39,7 @@ export class Recommender {
     result: RecommendationDTO[] = [];
     categories = ['Clothing', 'Decoration'];
 
-    clothingItems = ['Shirt', 'Dress', 'Skirt', 'Pants', 'Sweater', 'Blouse'];
+    clothingItems = ['Shirt', 'Dress', 'Skirt', 'Pants', 'Blouse']; // todo sweater
     decorationItems = ['Tablecloth', 'Bedsheet', 'Pillowcase', 'Curtain'];
 
     selectCategory(cat: string) {

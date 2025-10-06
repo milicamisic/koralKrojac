@@ -2,6 +2,7 @@ template header
 minChest
 maxChest
 baseYarn
+note
 
 package forward
 
@@ -20,7 +21,7 @@ then
     Recommendation rec = new Recommendation(
         $sf.getFabric(),
         @{baseYarn},
-        "Bazna količina pređe za džemper obima grudi " + $sf.getChest()
+        "@{note}"
     );
     insert(rec);
 end

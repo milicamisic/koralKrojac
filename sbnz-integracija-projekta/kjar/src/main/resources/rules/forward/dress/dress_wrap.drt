@@ -17,16 +17,9 @@ when
     $rec : Recommendation(fabric == $df.fabric)
 then
     System.out.println("haljina wrap korekcija");
-    FabricRecommendation fr = new FabricRecommendation(
-        $rec.getFabric(),
-        $rec.getRequiredLength() + @{correction},
-        $rec.getNote() + " + wrap opcija",
-        "Dress",
-        $df.getDress().getType()
-    );
-    System.out.println("[INSERT] Ubacujem FabricRecommendation za: " + $rec.getFabric().getName());
-    insert(fr);
-    System.out.println("[INSERTED] FabricRecommendation inserted");
-    System.out.println(fr);
+    modify($rec) {
+        setRequiredLength($rec.getRequiredLength() + @{correction}),
+        setNote($rec.getNote() + " wrap opcija " + "@{wrap}")
+    }
 end
 end template

@@ -10,15 +10,22 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Dress sleeves correction"
 rule "Sleeves @{sleeveType}"
-    salience 75
+    salience 65
 when
-    $df : DressFabric(dress.sleeveType == "@{sleeveType}")
+    $df : DressFabric($dress: dress, dress.sleeveType == "@{sleeveType}")
     $rec : Recommendation(fabric == $df.fabric)
 then
     System.out.println("haljina rukavi korekcija");
-    modify($rec) {
-        setRequiredLength($rec.getRequiredLength() + @{correction}),
-        setNote($rec.getNote() + " " + "@{note}")
-    }
+    FabricRecommendation fr = new FabricRecommendation(
+        $rec.getFabric(),
+        $rec.getRequiredLength() + @{correction},
+        $rec.getNote() + "@note",
+        "Dress",
+        $dress.getType()
+    );
+    System.out.println("[INSERT] Ubacujem FabricRecommendation za: " + $rec.getFabric().getName());
+    insert(fr);
+    System.out.println("[INSERTED] FabricRecommendation inserted");
+    System.out.println(fr);
 end
 end template

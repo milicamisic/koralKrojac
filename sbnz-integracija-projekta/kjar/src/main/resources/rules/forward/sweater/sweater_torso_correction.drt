@@ -10,18 +10,18 @@ import com.ftn.sbnz.model.models.Recommendation
 
 template "Sweater torso correction"
 rule "Sweater torso correction @{minTorso}-@{maxTorso}"
+    salience 75
 when
     $sf : SweaterFabric(
         torsoLength >= @{minTorso},
-        torsoLength <= @{maxTorso},
-        fabric.category == "CLOTHING"
+        torsoLength <= @{maxTorso}
     )
+    $rec : Recommendation(fabric == $sf.fabric)
 then
-    Recommendation rec = new Recommendation(
-        $sf.getFabric(),
-        @{correction},
-        "Korekcija po dužini torza " + $sf.getTorsoLength()
-    );
-    insert(rec);
+    System.out.println("[RULE FIRED] Sweater torso correction @{minTorso}-@{maxTorso}");
+    modify($r) {
+        setRequiredLength($len * @{factor}),
+        setNote($r.getNote() + " | @{note}")
+    }
 end
 end template
